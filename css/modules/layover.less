@@ -1,0 +1,257 @@
+.layover{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top:0;
+	left:0;
+	background-color: @dark;
+	z-index: 100;
+
+	.layover_interior{
+		position: relative;
+		height: 100vh;
+		width: 100vh;
+		margin: auto;
+		.transform(rotate(-45deg));
+
+		& > div{
+			height: 20%;
+			width: 300%;
+			left: -100%;
+			position: relative;
+			float: left;
+			color: @light;
+			background-color: @dark;
+			overflow: hidden;
+			.transition(all .3s @eio);
+
+			h1{
+				position: absolute;
+				font-family: montserrat;
+				text-align: center;
+				text-transform: uppercase;
+				letter-spacing: 5px;
+				height: 20vh;
+				width: 100%;
+				margin:0;
+				display: table;
+				white-space: nowrap;
+				z-index: 10;
+
+				& > span{
+					white-space: nowrap;
+					width: 100%;
+					display: table-cell;
+					vertical-align: middle;
+
+					& > span{
+						border-bottom: 1px @light dotted;
+						cursor: pointer;
+					}
+				}
+
+				&:hover span span{
+					border-bottom: 1px @light dashed;
+				}
+
+				.open&{
+					height: 5vh;
+				}
+			}
+
+			.layover_content{
+				position: absolute;
+				overflow: scroll;
+				height: 100vh;
+				width: 100%;
+				top: 20%;
+				left: 0;
+				padding: 0 33%;
+				font-family: montserrat;
+				z-index: -1;
+				.transform(rotate(45deg));
+
+				&.unturned{ 
+					.transform(rotate(0deg));
+					top: 0;
+					padding-bottom: 5vh;
+				}
+
+				.layover_content_interior{
+					padding: 10% 0 50%;
+					color: @dark;
+					font-size: 28px;
+					line-height: 40px;
+				}
+
+				&.unturned .layover_content_interior{
+					padding: 0 30%;
+					height: 100%;
+					position: relative;
+
+					li{
+						list-style: none;
+						height:9%;
+						position: relative;
+						float: left;
+						width: 100%;
+						display: table;
+						cursor: pointer;
+
+						&:hover span span {
+							border-bottom: 1px @dark dashed;
+						}
+
+						& > span{
+							display: table-cell;
+							vertical-align: middle;
+
+							span{
+								border-bottom: 1px @dark dotted;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.about,
+		.help,
+		.langselect_from,
+		.langselect_to{
+			span{
+				height:18px;
+				top:50%;
+				margin-top:-9px;
+			}
+
+			.open&{
+				height: 5%;
+			}
+		}
+
+
+		.open_about& .about,
+		.open_help& .help,
+		.open_langselect_from& .langselect_from,
+		.open_langselect_to& .langselect_to{
+			height: 100% !important;
+			// margin-left: 0 !important;
+			background-color: @light;
+
+			h1{
+				color: @dark;
+			}
+
+			.layover_content{
+				z-index: 1;
+			}
+		}
+
+		.about{
+			h1{ margin-left:-100px; }
+
+			.open&{
+				margin-top: -15%;
+			}
+
+			.open_help&,
+			.open_langselect_from&,
+			.open_langselect_to&{
+
+				// margin-top:100px;
+			}
+		}
+
+		.help{
+			h1{ margin-left: -50px; }
+			
+			.open_help&,
+			.open_langselect_from&,
+			.open_langselect_to&{
+				margin-top:-10%;
+			}
+
+			// 	margin-top:-5%
+			// }
+
+			.open_about&,
+			.open_langselect_from&,
+			.open_langselect_to&{
+				
+			}
+		}
+
+		.hello{
+			opacity: 1;
+			visibility: visible;
+
+			.open& {
+				opacity: 0;
+				visibility: hidden;
+				display: none;
+			}
+			h1{
+				font-size:6em;
+			}
+		}
+
+		.langselect_from{
+			h1{ 
+				bottom: 0;
+				margin-left: 50px; 
+
+
+
+				span span span{
+					.transition(all .5s @eio 0s);
+					background-color: @light;
+
+					&.lang-it,
+					&.lang-fr,
+					&.lang-de,
+					&.lang-us,
+					&.lang-el,
+					&.lang-es,
+					&.lang-no,
+					&.lang-pt,
+					&.lang-ro,
+					&.lang-ru,
+					&.lang-sk{
+						background-color: @dark;
+					}
+				}
+			}
+
+			.open_langselect_from&,
+			.open_langselect_to&{
+				margin-top: -5%;
+			}
+			
+			.open_about&,
+			.open_help&,
+			.open_langselect_to&{
+
+			}
+		}
+
+		.langselect_to{
+			h1{ 
+				bottom: 0;
+				margin-left: 100px; 
+			}
+
+			.open_langselect_to&{
+
+			}
+
+			.open_about&,
+			.open_help&,
+			.open_langselect_from&{
+
+			}
+		}
+
+
+	}
+}

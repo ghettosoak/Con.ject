@@ -1,0 +1,66 @@
+.quadrat{
+	position: absolute;
+	height:14px;
+	width:14px;
+	top:50%;
+	left:50%;
+	margin:-7px 0 0 -7px;
+	overflow: hidden;
+	.transform(rotate(45deg));
+	@quadratatat:  ~'height .1s cubic-bezier(0.785, 0.135, 0.150, 0.860), width .1s cubic-bezier(0.785, 0.135, 0.150, 0.860), margin .1s cubic-bezier(0.785, 0.135, 0.150, 0.860)';
+	.transition(@quadratatat);
+	cursor: pointer;
+	z-index: 13;
+
+	&:hover,
+	&.ic{
+		height: 100px;
+		width: 100px;
+		margin:-50px 0 0 -50px;
+	}
+
+	.spin{
+		height: 200px;
+		width: 200px;
+		top:50%;
+		left:50%;
+		position: absolute;
+		margin:-100px 0 0 -100px;
+		.transform(rotate(-45deg));
+
+		div{
+			position: fixed;
+			width: 50%;
+			height: 50%;
+			.transition(all .3s cubic-bezier(0.785, 0.135, 0.150, 0.860));
+
+			&.one{
+				top:0;
+				left:0;
+				background-color:@light;
+				.ic&{ background-color: @dark; }
+			}
+
+			&.two{
+				top:0;
+				right:0;
+				background-color:@dark;
+				.ic&{ background-color: @light; }
+			}
+
+			&.three{
+				bottom:0;
+				left:0;
+				background-color: @dark;
+				.ic&{ background-color: @light; }
+			}
+
+			&.four{
+				bottom:0;
+				right:0;
+				background-color:@light;
+				.ic&{ background-color: @dark; }
+			}
+		}
+	}
+}
