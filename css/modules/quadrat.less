@@ -17,6 +17,13 @@
 		height: 100px;
 		width: 100px;
 		margin:-50px 0 0 -50px;
+
+		.quadrant:before{ height: 25px !important; width: 25px !important;}
+
+		.one:before   { bottom: -12.5px !important; right: -12.5px !important; }
+		.two:before   { bottom: -12.5px !important; left: -12.5px !important; }
+		.three:before { top: -12.5px !important; right: -12.5px !important; }
+		.four:before  { top: -12.5px !important; left: -12.5px !important; }
 	}
 
 	.spin{
@@ -28,39 +35,103 @@
 		margin:-100px 0 0 -100px;
 		.transform(rotate(-45deg));
 
-		div{
+		.unlock{
+			position: fixed;
+			height: 25px;
+			width: 25px;
+			top: 50%;
+			left: 50%;
+			margin: -12.5px 0 0 -12.5px;
+			z-index: 1;
+
+			&:hover{
+				height: 50px;
+				width: 50px;
+				margin: -25px 0 0 -25px;
+
+				& ~ .quadrant:before{ height: 50px !important; width: 50px !important; }
+
+				& ~ .one:before   { bottom: -25px !important;  right: -25px !important; }
+				& ~ .two:before   { bottom: -25px !important;  left: -25px !important; }
+				& ~ .three:before { top: -25px !important;     right: -25px !important; }
+				& ~ .four:before  { top: -25px !important;     left: -25px !important; }
+			}
+		}
+
+		.quadrant{
 			position: fixed;
 			width: 50%;
 			height: 50%;
-			.transition(all .3s cubic-bezier(0.785, 0.135, 0.150, 0.860));
+			overflow: hidden;
+			.transition(all .3s @smooth);
 
-			&.one{
-				top:0;
-				left:0;
-				background-color:@light;
-				.ic&{ background-color: @dark; }
+			&:before{
+				content: '';
+				position: absolute;
+				height: 0;
+				width: 0;
+				border-radius: 50px;
+				.transition(all .3s @smooth);
 			}
+		}
 
-			&.two{
-				top:0;
-				right:0;
-				background-color:@dark;
-				.ic&{ background-color: @light; }
-			}
+		.one{
+			top:0;
+			left:0;
+			background-color:@light;
+			.ic&{ background-color: @dark; }
 
-			&.three{
-				bottom:0;
-				left:0;
+			&:before{
+				bottom: 0; right: 0;
+
 				background-color: @dark;
-				.ic&{ background-color: @light; }
+				.ic&{ background-color:@light; }
 			}
+		}
 
-			&.four{
-				bottom:0;
-				right:0;
-				background-color:@light;
+		.two{
+			top:0;
+			right:0;
+			background-color:@dark;
+			.ic&{ background-color: @light; }
+
+			&:before{
+				bottom: 0; left: 0;
+
+				background-color: @light;
+				.ic&{ background-color:@dark; }
+			}
+		}
+
+		.three{
+			bottom:0;
+			left:0;
+			background-color: @dark;
+			.ic&{ background-color: @light; }
+
+			&:before{
+				top: 0; right: 0;
+
+				background-color: @light;
 				.ic&{ background-color: @dark; }
 			}
 		}
+
+		.four{
+			bottom:0;
+			right:0;
+			background-color:@light;
+			.ic&{ background-color: @dark; }
+
+			&:before{
+				top: 0; left: 0;
+
+				background-color: @dark;
+				.ic&{ background-color:@light; }
+			}
+		}
+
+		
+		
 	}
 }

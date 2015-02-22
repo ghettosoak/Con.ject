@@ -1,0 +1,52 @@
+.loadover{
+	width: 200%;
+	height: 200%;
+	position: fixed;
+	top: -50%;
+	left: -50%;
+	z-index: 90;
+	visibility: hidden;
+	.transform(rotate(45deg));
+
+	&.lay{
+		visibility: visible;
+	}
+
+	div{
+		background-color: @dark; 
+		position: relative;
+		float: left;
+		height: 2%;
+		width: 100%;
+		.transition(all 1.5s @eio);
+
+		&.LO_odd{
+			.transform(translateX(-100%));
+		}
+
+		&.LO_even{
+			.transform(translateX(100%));
+		}
+
+		.lay&{
+			.transform(translate(0));
+		}
+
+		&:before,
+		&:after{
+			content: '';
+			position: absolute;
+			height: 1px;
+			width: 100%;
+			background-color: @dark;
+		}
+
+		&:before{
+			top:-1px;
+		}
+
+		&:after{
+			bottom: -1px;
+		}
+	}
+}

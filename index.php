@@ -24,16 +24,16 @@
 		ng-class="{resizedText: tooMuchText}"
 	>
 
-		<div class="language_marker strange_from" ng-click="" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : vert }">
+		<div class="language_marker strange_from" ng-click="layoverClick('lay open open_langselect_from')" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : vert }">
 			<span ng-bind="tongueUser.strange"></span>
 		</div>
-		<div class="language_marker strange_to"   ng-click="" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : vert }">
+		<div class="language_marker strange_to"   ng-click="layoverClick('lay open open_langselect_to')" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : vert }">
 			<span ng-bind="tongueUser.mother"></span>
 		</div>
-		<div class="language_marker mother_from"  ng-click="" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : antivert }">
+		<div class="language_marker mother_from"  ng-click="layoverClick('lay open open_langselect_from')" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : antivert }">
 			<span ng-bind="tongueUser.mother"></span>
 		</div>
-		<div class="language_marker mother_to"    ng-click="" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : antivert }">
+		<div class="language_marker mother_to"    ng-click="layoverClick('lay open open_langselect_to')" ng-class="{pardon: shadeTunerToggle}" ng-style="{ 'height' : antivert }">
 			<span ng-bind="tongueUser.strange"></span>
 		</div>
 
@@ -46,7 +46,14 @@
 				class="interact"
 				back
 			>
-				<div class="block" ng-repeat="block in strange.from track by $index">
+				<div class="block" 
+					ng-repeat="block in strange.from track by $index"
+					ng-mouseenter="strange.to[$index].hovered = true"
+					ng-mouseleave="strange.to[$index].hovered = false"
+					ng-class="{
+						hovered:  strange.to[$index].hovered
+					}"
+				>
 					<span 
 						class="closer"
 						ng-click="closeBlock($event, $index, 'strange')"
@@ -87,9 +94,12 @@
 				<div class="block" 
 					ng-click="block.selected = true"
 					ng-repeat="block in strange.to track by $index" 
+					ng-mouseenter="block.hovered = true"
+					ng-mouseleave="block.hovered = false"
 					ng-class="{
 						loading : block.loading,
-						selected: block.selected
+						selected: block.selected,
+						hovered:  block.hovered
 					}"
 				>
 					<span 
@@ -115,6 +125,7 @@
 							class="actual display"
 							ng-click="content.selected = true"
 							ng-hide="content.selected === true"
+							ng-mouseover="synonymous(content.display, $index, $parent.$index, 'strange')"
 						>
 							{{content.display}}
 						</span>
@@ -271,29 +282,277 @@
 
 		<div class="quadrat"
 			ng-class="{ic: shadeTunerToggle}"
-			ng-mousedown="shadeTunerSwitch($event)"
 			ng-style="{ 
 				'top' : vert,
 				'left' : horiz
 			}">
 			<div class="spin">
-				<div class="one"></div>
-				<div class="two"></div>
-				<div class="three"></div>
-				<div class="four"></div>
-				<div class="unlock"></div>
+				<div class="unlock"
+					ng-click="layoverClick('lay')"
+				></div>
+				<div class="quadrant one"   ng-mousedown="shadeTunerSwitch($event)" ></div>
+				<div class="quadrant two"   ng-mousedown="shadeTunerSwitch($event)" ></div>
+				<div class="quadrant three" ng-mousedown="shadeTunerSwitch($event)" ></div>
+				<div class="quadrant four"  ng-mousedown="shadeTunerSwitch($event)" ></div>
 			</div>
 		</div>
 
-		<div class="loadover"></div>
+		<div class="helper helping_{{helperCount}}"
+			ng-class="laidover"
+		>
+
+			<div class="helper_strange_from">
+				<div class="dot1">
+					<span>h</span>
+					<span>a</span>
+					<span>l</span>
+					<span>l</span>
+					<span>o</span>
+					<span> </span>
+					<span>w</span>
+					<span>e</span>
+					<span>l</span>
+					<span>t</span>
+					<span>!</span>
+				</div>
+			</div>
+			<div class="helper_strange_to">
+				
+			</div>
+			<div class="helper_mother_from">
+				
+			</div>
+			<div class="helper_mother_to">
+				
+			</div>
+
+			<div class="helper_closer"
+				ng-click="layoverClick('')"
+			>
+				<p class="close_1">got</p>
+				<p class="close_2">it!</p>
+			</div>
+
+			<div class="helper_text">
+				<div class="helper_text_left" ng-click="helperMove('left')">
+					<div class="top"></div>
+					<div class="bottom"></div>
+				</div>
+				<div class="helper_text_right" ng-click="helperMove('right')">
+					<div class="top"></div>
+					<div class="bottom"></div>
+				</div>
+
+				<div class="helper_text_dots">
+					<div class="dot d1"></div>
+					<div class="dot d2"></div>
+					<div class="dot d3"></div>
+					<div class="dot d4"></div>
+					<div class="dot d5"></div>
+					<div class="dot d6"></div>
+					<div class="dot d7"></div>
+					<div class="dot d8"></div>
+					<div class="dot d9"></div>
+					<div class="dot d10"></div>
+					<div class="dot d11"></div>
+					<div class="dot d12"></div>
+					<div class="dot d13"></div>
+					<div class="dot d14"></div>
+				</div>
+
+				<div class="helper_text_body">
+					
+					<div class="helper_text_exterior helper_text_1">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Hi! Welcome to con.ject, the beautiful translator for folks who do lots of micro-translations. </p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_2">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>The left side of the app is for text input. Press</p> 
+								<p>
+									<span class="buttons windows"><span>ctrl</span> + <span>return</span></span>
+									<span class="buttons mac"><span>cmd</span> + <span>return</span></span>
+								</p>
+								<p>to set the translator elves to task.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_3">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Once the translator elves have finished their work, the result will show up on the right side. Press</p>
+								<p><span class="buttons"><span>TAB</span></span> </p>
+								<p>to select it, and </p>
+								<p>
+									<span class="buttons windows"><span>ctrl</span> + <span>C</span></span>
+									<span class="buttons mac"><span>cmd</span> + <span>C</span></span>
+								</p>
+								<p>to copy it.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_4">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>If you're pasting in text, the elves instinctually know to get to work straight away – no need to press anything. </p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_5">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>You can navigate through results with</p>
+								<p>
+									<span class="buttons"><span>&#8593;</span> & <span>&#8595;</span></span>
+								</p>
+								<p>and return to the corresponding text box with </p>
+								<p>
+									<span class="buttons"><span>shift</span> + <span>tab</span></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_6">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Jump between language directions with</p>
+								<p>
+									<span class="buttons windows"><span>ctrl</span> + <span>&#8593;</span> / <span>&#8595;</span></span>
+									<span class="buttons mac"><span>cmd</span> + <span>&#8593;</span> / <span>&#8595;</span></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_7">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Not the word you were looking for? Click the translated text to get a list of synonyms. It'll be replaced inline!</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_8">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Copy individual words directly to the clipboard by double clicking the word.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_9">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Selecting entire blocks of text is super simple. Just click its background twice, and you're done.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_10">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Clear entire blocks with the handy half-cross in the middle.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_11">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Quickly change languages by clicking on the reference tabs at the edge.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_12">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Need a more space in one direction than the other? Resize things with the cube in the middle.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_13">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>Go to the main menu by clicking on the circle inside the cube.</p>
+							</div>
+						</div>
+					</div>
+					<div class="helper_text_exterior helper_text_14">
+						<div class="helper_text_stuffing">
+							<div class="helper_text_interior">
+								<p>That's it! Happy translating!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="loadover"
+			ng-class="laidover"
+		>
+			<div class="LO_1  LO_odd  "></div>
+			<div class="LO_2  LO_even "></div>
+			<div class="LO_3  LO_odd  "></div>
+			<div class="LO_4  LO_even "></div>
+			<div class="LO_5  LO_odd  "></div>
+			<div class="LO_6  LO_even "></div>
+			<div class="LO_7  LO_odd  "></div>
+			<div class="LO_8  LO_even "></div>
+			<div class="LO_9  LO_odd  "></div>
+			<div class="LO_10 LO_even "></div>
+			<div class="LO_11 LO_odd  "></div>
+			<div class="LO_12 LO_even "></div>
+			<div class="LO_13 LO_odd  "></div>
+			<div class="LO_14 LO_even "></div>
+			<div class="LO_15 LO_odd  "></div>
+			<div class="LO_16 LO_even "></div>
+			<div class="LO_17 LO_odd  "></div>
+			<div class="LO_18 LO_even "></div>
+			<div class="LO_19 LO_odd  "></div>
+			<div class="LO_20 LO_even "></div>
+			<div class="LO_21 LO_odd  "></div>
+			<div class="LO_22 LO_even "></div>
+			<div class="LO_23 LO_odd  "></div>
+			<div class="LO_24 LO_even "></div>
+			<div class="LO_25 LO_odd  "></div>
+			<div class="LO_26 LO_even "></div>
+			<div class="LO_27 LO_odd  "></div>
+			<div class="LO_28 LO_even "></div>
+			<div class="LO_29 LO_odd  "></div>
+			<div class="LO_30 LO_even "></div>
+			<div class="LO_31 LO_odd  "></div>
+			<div class="LO_32 LO_even "></div>
+			<div class="LO_33 LO_odd  "></div>
+			<div class="LO_34 LO_even "></div>
+			<div class="LO_35 LO_odd  "></div>
+			<div class="LO_36 LO_even "></div>
+			<div class="LO_37 LO_odd  "></div>
+			<div class="LO_38 LO_even "></div>
+			<div class="LO_39 LO_odd  "></div>
+			<div class="LO_40 LO_even "></div>
+			<div class="LO_41 LO_odd  "></div>
+			<div class="LO_42 LO_even "></div>
+			<div class="LO_43 LO_odd  "></div>
+			<div class="LO_44 LO_even "></div>
+			<div class="LO_45 LO_odd  "></div>
+			<div class="LO_46 LO_even "></div>
+			<div class="LO_47 LO_odd  "></div>
+			<div class="LO_48 LO_even "></div>
+			<div class="LO_49 LO_odd  "></div>
+			<div class="LO_50 LO_even "></div>
+		</div>
 
 		<div 
 			class="layover"
 			ng-class="laidover">
+			<div class="closer" ng-click="layoverClick('lay')"><span></span></div>
 			<div class="layover_interior">
+
 			
 				<div class="about">
-					<h1><span><span ng-click="layoverClick('about')">About</span></span></h1>
+					<h1><span><span ng-click="layoverClick('lay open open_about')">About</span></span></h1>
 					<div class="layover_content">
 						<div class="layover_content_interior">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -306,7 +565,7 @@
 					</div>
 				</div>
 				<div class="help">
-					<h1><span><span ng-click="layoverClick('help')">How to use</span></span></h1>
+					<h1><span><span ng-click="layoverClick('helping'); helpInit();">How to use</span></span></h1>
 					<div class="layover_content">
 						<div class="layover_content_interior">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -319,12 +578,13 @@
 					</div>
 				</div>
 				<div class="hello">
-					<h1><span>[CON.JECT]</span></h1>
+					<h1 class="logo"><span><span ng-click="layoverClick('')">[CON.JECT]</span></span></h1>
+					<h1 class="pep"><span><span ng-click="layoverClick('')">Let's go!</span></span></h1>
 				</div>
 				<div class="langselect_from">
 					<h1>
 						<span>
-							<span ng-click="layoverClick('langselect_from')">
+							<span ng-click="layoverClick('lay open open_langselect_from')">
 								Familiar Tongue (<span class="lang-{{tongueUser.strange}}" ng-bind="tongueUser.strange"></span>)
 							</span>
 						</span>
@@ -335,14 +595,14 @@
 							<li
 								ng-repeat="(key, data) in tongueAvailable"
 								ng-click="tongueUser.strange = key"
-							><span><span>{{data.display}}</span></span></li>
+							><span><span>{{data.display}} <span>({{data.translate}})</span></span></span></li>
 						</div>
 					</div>
 				</div>
 				<div class="langselect_to">
 					<h1>
 						<span>
-							<span ng-click="layoverClick('langselect_to')">
+							<span ng-click="layoverClick('lay open open_langselect_to')">
 								Foreign Tongue (<span ng-bind="tongueUser.mother"></span>)
 							</span>
 						</span>
@@ -353,7 +613,7 @@
 							<li
 								ng-repeat="(key, data) in tongueAvailable"
 								ng-click="tongueUser.mother = key"
-							><span><span>{{data.display}}</span></span></li>
+							><span><span>{{data.display}} <span>({{data.translate}})</span></span></span></li>
 						</div>
 					</div>
 				</div>

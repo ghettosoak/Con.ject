@@ -8,10 +8,21 @@ function randomizr(){
     return uuid;
 };
 
-var $windowpane = $(window),
+var $window = $(window),
 	map = [],
 	strange,
 	mother;
+
+$window.load(function(){
+	if (
+
+		( window.navigator.platform === 'Mac68K') ||
+		( window.navigator.platform === 'MacPPC') ||
+		( window.navigator.platform === 'MacIntel')
+	){
+		$('html').addClass('cmd');
+	}
+});
 
 var app = angular.module('conjecture', ['ngClipboard'])
 
@@ -51,6 +62,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			{
 				loading: false,
 				selected: false,
+				hovered: false,
 				content:[
 					{
 						selected: false,
@@ -262,7 +274,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		'it' :{ display: 'Italian',    translate: 'it', thesaurus:'it_IT' },
 		'fr' :{ display: 'French',     translate: 'fr', thesaurus:'fr_FR' },
 		'de' :{ display: 'German',     translate: 'de', thesaurus:'de_DE' },
-		'us' :{ display: 'English',    translate: 'us', thesaurus:'en_US' },
+		'en' :{ display: 'English',    translate: 'en', thesaurus:'en_US' },
 		'el' :{ display: 'Greek',      translate: 'el', thesaurus:'el_GR' },
 		'es' :{ display: 'Spanish',    translate: 'es', thesaurus:'es_ES' },
 		'no' :{ display: 'Norwegian',  translate: 'no', thesaurus:'no_NO' },
@@ -287,7 +299,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	}
 
 	$scope.tooMuchText = false;
-
+ 
 	
 
 	// 	                                                     
@@ -356,16 +368,28 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		}
 	}
 
-	$scope.translate_test = _.debounce(function(query_d, target_d, language_d){
-		console.log('TRANSLATE_TEST')
-		$scope.translate_direct_test(query_d, target_d, language_d);
-	}, 500)
+	// $scope.translate_test = _.debounce(function(query_d, target_d, language_d){
+	// 	console.log('TRANSLATE_TEST')
+	// 	$scope.translate_direct_test(query_d, target_d, language_d);
+	// }, 500)
 
 	$scope.translate_test = function(query, target, language){
 		if (query !== ''){
 
-			if (language === 'strange') direction = 'de|en';
-				else direction = 'en|de';
+			if (language === 'strange'){
+				// direction = 'de|en';
+				direction = 
+					$scope.tongueAvailable[ $scope.tongueUser.strange ].translate + 
+					'|' + 
+					$scope.tongueAvailable[ $scope.tongueUser.mother ].translate;
+			}
+			else{
+				// direction = 'en|de';
+				direction = 
+					$scope.tongueAvailable[ $scope.tongueUser.strange ].translate + 
+					'|' + 
+					$scope.tongueAvailable[ $scope.tongueUser.mother ].translate;
+			}
 
 			$.ajax({
 				type: 'GET',
@@ -392,8 +416,12 @@ var app = angular.module('conjecture', ['ngClipboard'])
 					);
 				}
 
-				console.log($scope[language].to[target].content)
-				$scope.synonymous($scope[language].to[target].content, target, language);
+				// console.log($scope[language].to[target].content)
+
+				// if (language === 'strange') language = 'mother';
+				// 	else language = 'strange';
+
+				// $scope.synonymous($scope[language].to[target].content, target, language);
 
 				$scope.$apply();
 			});
@@ -412,45 +440,103 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	                                                                                                                   
 	// 	                                                                                                                   
 
-	$scope.synonymous = function(queries, target, language){
-		var queryServer = '';
-		var queryIndex = [];
+	// $scope.synonymous = function(queries, target, language){
+	// 	var queryServer = '';
+	// 	var queryIndex = [];
 
-		for (var i = 0; i < queries.length; i++){
-			if (i !== queries.length - 1)
-				queryServer += queries[i].values[0].word.match(/\w+|"[^"]+"/g) + ' ';
-			else
-				queryServer += queries[i].values[0].word.match(/\w+|"[^"]+"/g);
+	// 	for (var i = 0; i < queries.length; i++){
+	// 		if (i !== queries.length - 1)
+	// 			queryServer += queries[i].values[0].word.match(/\w+|"[^"]+"/g) + ' ';
+	// 		else
+	// 			queryServer += queries[i].values[0].word.match(/\w+|"[^"]+"/g);
 
-			queryIndex.push(queries[i].values[0].word.match(/\w+|"[^"]+"/g)[0]);			
-		}
+	// 		queryIndex.push(queries[i].values[0].word.match(/\w+|"[^"]+"/g)[0]);			
+	// 	}
+
+	// 	console.log(queryIndex)
+
+	// 	if (language === 'strange') theLang = 'mother';
+	// 		else theLang = 'strange';
+
+
+	// 	$.ajax({
+	// 		type: 'GET',
+	// 		// url: 'php/thesaurus.php',
+	// 		dataType: 'jsonp', 
+	// 		url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + queryIndex[0] + '&language=' + $scope.tongueAvailable[ $scope.tongueUser[ theLang ] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json'
+	// 		// url: 'http://thesaurus.altervista.org/thesaurus/v1?word=hallo&language=' + $scope.tongueAvailable[ $scope.tongueUser[language] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json'
+
+	// 		// url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + queryIndex[0] + '&language=' + $scope.tongueAvailable[ $scope.tongueUser[language] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json',
+
+	// 		// data: { 
+	// 		// 	query: queryServer
+	// 		// }
+	// 	}).done( function(response, status){
+
+	// 		console.log(response)
+
+	// 		for (var j = 0; j < $scope[language].to[target].content.length; j++){
+
+	// 			var _j = $scope[language].to[target].content[j].display.match(/\w+|"[^"]+"/g);
+
+	// 			for (var k = 0; k < response[_j].length; k++){
+
+	// 				$scope[language].to[target].content[j].values.push( 
+	// 					{
+	// 						word: response[queryIndex[j]][k], 
+	// 						chosen: false
+	// 					} 
+	// 				)
+	// 			}
+	// 		}
+
+	// 		$scope.$apply();
+	// 	});
+
+	// }                                                                                                    
+
+	$scope.synonymous = function(query, word, target, language){
+
+		console.log(query)
+		console.log(word)
+		console.log(target)
+		console.log(language)
+
+		if (language === 'strange') theLang = 'mother';
+			else theLang = 'strange';
+
+		// for (var q = 0; q < queryIndex.length; q ++){
 
 		$.ajax({
 			type: 'GET',
-			// url: 'php/thesaurus.php',
-			url: 'http://thesaurus.altervista.org/thesaurus/v1?word=welt&language=de_DE&key=lUigdQQMwGstukSQhYCI&output=json',
-			data: { 
-				query: queryServer
-			}
+			dataType: 'jsonp', 
+			url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + query + 
+				 '&language=' + $scope.tongueAvailable[ $scope.tongueUser[ theLang ] ].thesaurus + 
+				 '&key=lUigdQQMwGstukSQhYCI&output=json'
+
 		}).done( function(response, status){
 
-			for (var j = 0; j < $scope[language].to[target].content.length; j++){
+			console.log(response)
 
-				var _j = $scope[language].to[target].content[j].display.match(/\w+|"[^"]+"/g);
+			var reactions = response.response[0].list.synonyms.split('|')
 
-				for (var k = 0; k < response[_j].length; k++){
+			console.log(reactions)
 
-					$scope[language].to[target].content[j].values.push( 
-						{
-							word: response[queryIndex[j]][k], 
-							chosen: false
-						} 
-					)
-				}
+			for (var j = 0; j < reactions.length; j++){
+				$scope[language].to[target].content[word].values.push( {
+					word: reactions[j], 
+					chosen: false
+				} );
 			}
 
 			$scope.$apply();
+		}).fail( function(jqXHR, textStatus, errorThrown){
+			console.log(jqXHR)
+			console.log(textStatus)
+			console.log(errorThrown)
 		});
+		// }
+
 	}
 
 	$scope.symmetrical = function(value, contentTarget, languageTarget, language, $event){
@@ -513,6 +599,52 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		}
 	}
 
+	$scope.shadeOverlayer = function(){
+
+	}
+
+	// 	                                                                                          
+	// 	88                 db   8b        d8 ,ad8888ba,  8b           d8 88888888888 88888888ba   
+	// 	88                d88b   Y8,    ,8P d8"'    `"8b `8b         d8' 88          88      "8b  
+	// 	88               d8'`8b   Y8,  ,8P d8'        `8b `8b       d8'  88          88      ,8P  
+	// 	88              d8'  `8b   "8aa8"  88          88  `8b     d8'   88aaaaa     88aaaaaa8P'  
+	// 	88             d8YaaaaY8b   `88'   88          88   `8b   d8'    88"""""     88""""88'    
+	// 	88            d8""""""""8b   88    Y8,        ,8P    `8b d8'     88          88    `8b    
+	// 	88           d8'        `8b  88     Y8a.    .a8P      `888'      88          88     `8b   
+	// 	88888888888 d8'          `8b 88      `"Y8888Y"'        `8'       88888888888 88      `8b  
+	// 	                                                                                          
+	// 	  
+
+	$scope.layoverClick = function(target){
+		$scope.laidover = target;
+	}
+
+	//                                                                            
+	//  88        88 88888888888 88          88888888ba  88888888888 88888888ba   
+	//  88        88 88          88          88      "8b 88          88      "8b  
+	//  88        88 88          88          88      ,8P 88          88      ,8P  
+	//  88aaaaaaaa88 88aaaaa     88          88aaaaaa8P' 88aaaaa     88aaaaaa8P'  
+	//  88""""""""88 88"""""     88          88""""""'   88"""""     88""""88'    
+	//  88        88 88          88          88          88          88    `8b    
+	//  88        88 88          88          88          88          88     `8b   
+	//  88        88 88888888888 88888888888 88          88888888888 88      `8b  
+	//                                                                            
+
+	$scope.helperCount = 1;
+
+	$scope.helperMove = function(direction){
+
+		if (direction === 'left' && $scope.helperCount > 0 )
+			$scope.helperCount--;
+		else if (direction === 'right' && $scope.helperCount < 14 )
+			$scope.helperCount++; 
+
+	}
+
+	$scope.helpInit = function(){
+		console.log('yeah!')
+	}
+
 	// 	                                                                                                                                                                 
 	// 	88888888ba  88          ,ad8888ba,     ,ad8888ba,  88      a8P       ,ad8888ba,   ,ad8888ba,   888b      88 888888888888 88888888ba    ,ad8888ba,   88           
 	// 	88      "8b 88         d8"'    `"8b   d8"'    `"8b 88    ,88'       d8"'    `"8b d8"'    `"8b  8888b     88      88      88      "8b  d8"'    `"8b  88           
@@ -528,10 +660,21 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	$scope.addBlock = function(e, i, t){
 		$timeout(function(){ 
 			$scope[t].from 
-				.splice(i + 1, 0, {content:''});
+				.splice(i + 1, 0, 
+				{
+					content:''
+				}
+			);
 
 			$scope[t].to
-				.splice(i + 1, 0, {loading:false, selected: false, content:[]});
+				.splice(i + 1, 0, 
+				{
+					loading:false, 
+					selected: false, 
+					hovered: false, 
+					content:[]
+				}
+			);
 
 			$scope.$apply();
 		});
@@ -609,18 +752,18 @@ var app = angular.module('conjecture', ['ngClipboard'])
 				// (map[13] && map [16] && map[91])
 				(map[13] && map[91])
 		){
-			$scope.translate_direct_test($scope[t].from[i].content, i, t);
+			$scope.translate_test($scope[t].from[i].content, i, t);
 
-			clearMap();
+			// clearMap();
 		}
 
 		// ENTER
 		else if (map[13]){ 
 			that.preventDefault();
 
-			$scope.addBlock(e, i, t);
+			// $scope.addBlock(e, i, t);
 
-			clearMap();
+			// clearMap();
 		}
 
 		// CMD + DEL
@@ -846,22 +989,6 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		}
 
 	}
-
-	// 	                                                                                          
-	// 	88                 db   8b        d8 ,ad8888ba,  8b           d8 88888888888 88888888ba   
-	// 	88                d88b   Y8,    ,8P d8"'    `"8b `8b         d8' 88          88      "8b  
-	// 	88               d8'`8b   Y8,  ,8P d8'        `8b `8b       d8'  88          88      ,8P  
-	// 	88              d8'  `8b   "8aa8"  88          88  `8b     d8'   88aaaaa     88aaaaaa8P'  
-	// 	88             d8YaaaaY8b   `88'   88          88   `8b   d8'    88"""""     88""""88'    
-	// 	88            d8""""""""8b   88    Y8,        ,8P    `8b d8'     88          88    `8b    
-	// 	88           d8'        `8b  88     Y8a.    .a8P      `888'      88          88     `8b   
-	// 	88888888888 d8'          `8b 88      `"Y8888Y"'        `8'       88888888888 88      `8b  
-	// 	                                                                                          
-	// 	  
-
-	$scope.layoverClick = function(target){
-		$scope.laidover = 'open open_' + target;
-	}
 })
 
 .directive('initFocus', [ '$timeout', 
@@ -916,6 +1043,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
         	    $elem.on('click', function (e) {
         	    	$('.word').removeClass('open')
+        	    	// $('.block').removeClass('selected')
         	    });
 	        }
 	    };
