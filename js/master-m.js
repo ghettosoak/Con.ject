@@ -28477,222 +28477,222 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// mother = $scope.mother = {from: [{content:' '}],to:[{loading: false,content:' '}]}
 
 	// TEST
-	strange = $scope.strange = {
-		from: [
-			{content:'hallo das ist ein bisschen text'},
-			{content:'hallo das ist ein bisschen text'}
-		],
-		to:[
-			{
-				loading: false,
-				selected: false,
-				hovered: false,
-				content:[
-					{
-						selected: false,
-						display:'hi',
-						values:[
-							{
-								word: 'hi',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'this',
-						values:[
-							{
-								word: 'this',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'is',
-						values:[
-							{
-								word: 'is',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'some',
-						values:[
-							{
-								word: 'some',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'textttt',
-						values:[
-							{
-								word: 'text',
-								chosen: true
-							},
-							{
-								word: 'text1',
-								chosen: false
-							},
-							{
-								word: 'text2',
-								chosen: false
-							},
-							{
-								word: 'text3',
-								chosen: false
-							}
-						]
-					},
-				]
-			},
-			{
-				loading: false,
-				selected: false,
-				content:[
-					{
-						selected: false,
-						display:'hi',
-						values:[
-							{
-								word: 'hi',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'this',
-						values:[
-							{
-								word: 'this',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'is',
-						values:[
-							{
-								word: 'is',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'some',
-						values:[
-							{
-								word: 'some',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'text',
-						values:[
-							{
-								word: 'text',
-								chosen: true
-							},
-							{
-								word: 'text1',
-								chosen: false
-							},
-							{
-								word: 'text2',
-								chosen: false
-							},
-							{
-								word: 'text3',
-								chosen: false
-							}
-						]
-					},
-				]
-			}
-		]
-	}
+	// strange = $scope.strange = {
+	// 	from: [
+	// 		{content:'hallo das ist ein bisschen text'},
+	// 		{content:'hallo das ist ein bisschen text'}
+	// 	],
+	// 	to:[
+	// 		{
+	// 			loading: false,
+	// 			selected: false,
+	// 			hovered: false,
+	// 			content:[
+	// 				{
+	// 					selected: false,
+	// 					display:'hi',
+	// 					values:[
+	// 						{
+	// 							word: 'hi',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'this',
+	// 					values:[
+	// 						{
+	// 							word: 'this',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'is',
+	// 					values:[
+	// 						{
+	// 							word: 'is',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'some',
+	// 					values:[
+	// 						{
+	// 							word: 'some',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'textttt',
+	// 					values:[
+	// 						{
+	// 							word: 'text',
+	// 							chosen: true
+	// 						},
+	// 						{
+	// 							word: 'text1',
+	// 							chosen: false
+	// 						},
+	// 						{
+	// 							word: 'text2',
+	// 							chosen: false
+	// 						},
+	// 						{
+	// 							word: 'text3',
+	// 							chosen: false
+	// 						}
+	// 					]
+	// 				},
+	// 			]
+	// 		},
+	// 		{
+	// 			loading: false,
+	// 			selected: false,
+	// 			content:[
+	// 				{
+	// 					selected: false,
+	// 					display:'hi',
+	// 					values:[
+	// 						{
+	// 							word: 'hi',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'this',
+	// 					values:[
+	// 						{
+	// 							word: 'this',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'is',
+	// 					values:[
+	// 						{
+	// 							word: 'is',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'some',
+	// 					values:[
+	// 						{
+	// 							word: 'some',
+	// 							chosen: true
+	// 						}
+	// 					]
+	// 				},
+	// 				{
+	// 					selected: false,
+	// 					display:'text',
+	// 					values:[
+	// 						{
+	// 							word: 'text',
+	// 							chosen: true
+	// 						},
+	// 						{
+	// 							word: 'text1',
+	// 							chosen: false
+	// 						},
+	// 						{
+	// 							word: 'text2',
+	// 							chosen: false
+	// 						},
+	// 						{
+	// 							word: 'text3',
+	// 							chosen: false
+	// 						}
+	// 					]
+	// 				},
+	// 			]
+	// 		}
+	// 	]
+	// }
 
-	mother = $scope.mother = {from: [{content:'howdy'}],to:[
-		{
-			loading: false,
-			selected: false,
-			content:[
-				{
-					selected: false,
-					display:'salut',
-					values:[
-						{
-							word: 'salut',
-							chosen: true
-						}
-					]
-				},
-				{
-					selected: false,
-					display:'this',
-					values:[
-						{
-							word: 'this',
-							chosen: true
-						}
-					]
-				},
-				{
-					selected: false,
-					display:'is',
-					values:[
-						{
-							word: 'is',
-							chosen: true
-						}
-					]
-				},
-				{
-					selected: false,
-					display:'some',
-					values:[
-						{
-							word: 'some',
-							chosen: true
-						}
-					]
-				},
-				{
-					selected: false,
-					display:'text',
-					values:[
-						{
-							word: 'text',
-							chosen: true
-						},
-						{
-							word: 'text1',
-							chosen: false
-						},
-						{
-							word: 'text2',
-							chosen: false
-						},
-						{
-							word: 'text3',
-							chosen: false
-						}
-					]
-				},
-			]
-		},
-	]}
+	// mother = $scope.mother = {from: [{content:'howdy'}],to:[
+	// 	{
+	// 		loading: false,
+	// 		selected: false,
+	// 		content:[
+	// 			{
+	// 				selected: false,
+	// 				display:'salut',
+	// 				values:[
+	// 					{
+	// 						word: 'salut',
+	// 						chosen: true
+	// 					}
+	// 				]
+	// 			},
+	// 			{
+	// 				selected: false,
+	// 				display:'this',
+	// 				values:[
+	// 					{
+	// 						word: 'this',
+	// 						chosen: true
+	// 					}
+	// 				]
+	// 			},
+	// 			{
+	// 				selected: false,
+	// 				display:'is',
+	// 				values:[
+	// 					{
+	// 						word: 'is',
+	// 						chosen: true
+	// 					}
+	// 				]
+	// 			},
+	// 			{
+	// 				selected: false,
+	// 				display:'some',
+	// 				values:[
+	// 					{
+	// 						word: 'some',
+	// 						chosen: true
+	// 					}
+	// 				]
+	// 			},
+	// 			{
+	// 				selected: false,
+	// 				display:'text',
+	// 				values:[
+	// 					{
+	// 						word: 'text',
+	// 						chosen: true
+	// 					},
+	// 					{
+	// 						word: 'text1',
+	// 						chosen: false
+	// 					},
+	// 					{
+	// 						word: 'text2',
+	// 						chosen: false
+	// 					},
+	// 					{
+	// 						word: 'text3',
+	// 						chosen: false
+	// 					}
+	// 				]
+	// 			},
+	// 		]
+	// 	},
+	// ]}
 
 	$scope.tongueAvailable = {
 		'it' :{ display: 'Italian',    translate: 'it', thesaurus:'it_IT' },
@@ -28762,42 +28762,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	                                                                                                                     
 	// 	                                                                                                                     
 
-	$scope.translate = _.debounce(function(query_d, target_d, language_d){ 
-		$scope.translate_direct(query_d, target_d, language_d);
-	}, 1000);
-
-	$scope.translate_direct = function(query, target, language){
-		if (query !== ''){
-			console.log(query)
-			console.log(target)
-			console.log(language)
-			var direction,
-				target = $scope[language].to[target];
-
-			if (language === 'strange') direction = 'de|en';
-				else direction = 'en|de';
-
-			target.loading = true;
-			$scope.$apply();
-
-			$.ajax({
-				type: 'GET',
-				url: 'http://api.mymemory.translated.net/get?q=' + query + '&langpair=' + direction
-			}).done( function(response, status){
-				target.content = response.responseData.translatedText;
-				target.loading = false;
-				console.log(response)
-				$scope.$apply();
-			});
-		}
-	}
-
-	// $scope.translate_test = _.debounce(function(query_d, target_d, language_d){
-	// 	console.log('TRANSLATE_TEST')
-	// 	$scope.translate_direct_test(query_d, target_d, language_d);
-	// }, 500)
-
-	$scope.translate_test = function(query, target, language){
+	$scope.translate = function(query, target, language){
 		if (query !== ''){
 
 			if (language === 'strange'){
@@ -28815,10 +28780,10 @@ var app = angular.module('conjecture', ['ngClipboard'])
 					$scope.tongueAvailable[ $scope.tongueUser.mother ].translate;
 			}
 
+			$scope[language].to[target].loading = true;
+
 			$.ajax({
 				type: 'GET',
-				// url: 'js/test.json',
-				// data:query,
 				url: 'http://api.mymemory.translated.net/get?q=' + query + '&langpair=' + direction
 			}).done( function(response, status){
 				var incoming = response.responseData.translatedText.split(' ');
@@ -28840,12 +28805,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 					);
 				}
 
-				// console.log($scope[language].to[target].content)
-
-				// if (language === 'strange') language = 'mother';
-				// 	else language = 'strange';
-
-				// $scope.synonymous($scope[language].to[target].content, target, language);
+				$scope[language].to[target].loading = false;
 
 				$scope.$apply();
 			});
@@ -28862,62 +28822,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	     88      88        88 88         Y8a     a8P d8'        `8b Y8a.    .a8P 88     `8b  Y8a.    .a8P Y8a     a8P  
 	// 	     88      88        88 88888888888 "Y88888P" d8'          `8b `"Y8888Y"'  88      `8b  `"Y8888Y"'   "Y88888P"   
 	// 	                                                                                                                   
-	// 	                                                                                                                   
-
-	// $scope.synonymous = function(queries, target, language){
-	// 	var queryServer = '';
-	// 	var queryIndex = [];
-
-	// 	for (var i = 0; i < queries.length; i++){
-	// 		if (i !== queries.length - 1)
-	// 			queryServer += queries[i].values[0].word.match(/\w+|"[^"]+"/g) + ' ';
-	// 		else
-	// 			queryServer += queries[i].values[0].word.match(/\w+|"[^"]+"/g);
-
-	// 		queryIndex.push(queries[i].values[0].word.match(/\w+|"[^"]+"/g)[0]);			
-	// 	}
-
-	// 	console.log(queryIndex)
-
-	// 	if (language === 'strange') theLang = 'mother';
-	// 		else theLang = 'strange';
-
-
-	// 	$.ajax({
-	// 		type: 'GET',
-	// 		// url: 'php/thesaurus.php',
-	// 		dataType: 'jsonp', 
-	// 		url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + queryIndex[0] + '&language=' + $scope.tongueAvailable[ $scope.tongueUser[ theLang ] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json'
-	// 		// url: 'http://thesaurus.altervista.org/thesaurus/v1?word=hallo&language=' + $scope.tongueAvailable[ $scope.tongueUser[language] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json'
-
-	// 		// url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + queryIndex[0] + '&language=' + $scope.tongueAvailable[ $scope.tongueUser[language] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json',
-
-	// 		// data: { 
-	// 		// 	query: queryServer
-	// 		// }
-	// 	}).done( function(response, status){
-
-	// 		console.log(response)
-
-	// 		for (var j = 0; j < $scope[language].to[target].content.length; j++){
-
-	// 			var _j = $scope[language].to[target].content[j].display.match(/\w+|"[^"]+"/g);
-
-	// 			for (var k = 0; k < response[_j].length; k++){
-
-	// 				$scope[language].to[target].content[j].values.push( 
-	// 					{
-	// 						word: response[queryIndex[j]][k], 
-	// 						chosen: false
-	// 					} 
-	// 				)
-	// 			}
-	// 		}
-
-	// 		$scope.$apply();
-	// 	});
-
-	// }                                                                                                    
+	// 	                                                                                                                                                                                                                
 
 	$scope.synonymous = function(query, word, target, language){
 
@@ -28928,8 +28833,6 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 		if (language === 'strange') theLang = 'mother';
 			else theLang = 'strange';
-
-		// for (var q = 0; q < queryIndex.length; q ++){
 
 		$.ajax({
 			type: 'GET',
@@ -28959,7 +28862,6 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			console.log(textStatus)
 			console.log(errorThrown)
 		});
-		// }
 
 	}
 
@@ -29063,6 +28965,16 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		else if (direction === 'right' && $scope.helperCount < 14 )
 			$scope.helperCount++; 
 
+	}
+
+	$scope.helperRepeat = function(){
+		console.log('REPEAT')
+		var localCount = $scope.helperCount;
+		$scope.helperCount = null;
+
+		$timeout(function(){
+			$scope.helperCount = localCount;
+		}, 10);
 	}
 
 	$scope.helpInit = function(){
@@ -29176,18 +29088,18 @@ var app = angular.module('conjecture', ['ngClipboard'])
 				// (map[13] && map [16] && map[91])
 				(map[13] && map[91])
 		){
-			$scope.translate_test($scope[t].from[i].content, i, t);
+			$scope.translate($scope[t].from[i].content, i, t);
 
-			// clearMap();
+			clearMap();
 		}
 
 		// ENTER
 		else if (map[13]){ 
 			that.preventDefault();
 
-			// $scope.addBlock(e, i, t);
+			$scope.addBlock(e, i, t);
 
-			// clearMap();
+			clearMap();
 		}
 
 		// CMD + DEL

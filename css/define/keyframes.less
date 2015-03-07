@@ -21,3 +21,29 @@
   -o-animation:      loading .3s infinite;
   animation:         loading .3s infinite;
 }
+
+.buttonPress(@on, @off){
+
+  @-webkit-keyframes loading {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes loading {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes loading {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes loading {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  -webkit-animation: loading .3s infinite;
+  -moz-animation:    loading .3s infinite;
+  -o-animation:      loading .3s infinite;
+  animation:         loading .3s infinite;
+
+}
