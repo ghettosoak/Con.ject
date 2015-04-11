@@ -3,10 +3,9 @@
 	height: 50%;
 	width: 5%;
 	z-index: 10;
-	@markertransition: ~'background-color .3s ease-in-out, color .3s ease-in-out';
+	cursor: pointer;
+	@markertransition: ~'background-color .5s ease-in-out, color .5s ease-in-out';
 	.transition(@markertransition);
-
-	// &.pardon{ .transition(all 2s @eio); }
 
 	&.strange_from{
 		top: 0;
@@ -107,15 +106,15 @@
 		width:100%;
 		z-index: 2;
 		overflow: hidden;
-		.transition(all .3s @eio);
+		.transition(all .5s @eio);
  
-		.strange_from&{ .transform(rotate( 45deg) translate3d(  10000%,  5000%, 0) scale(100));  
+		.strange_from&{ .transform(rotate( 45deg) translate3d(  500%,  250%, 0) scale(5));  
 			color: @dark; background-color:@light; transform-origin: bottom right; }
-		.strange_to&{   .transform(rotate(-45deg) translate( -10000%,  5000%) scale(100));  
+		.strange_to&{   .transform(rotate(-45deg) translate3d( -500%,  250%, 0) scale(5));  
 			color: @light; background-color:@dark; transform-origin: bottom left; }
-		.mother_from&{  .transform(rotate(-45deg) translate3d(  10000%, -5000%, 0) scale(100));  
+		.mother_from&{  .transform(rotate(-45deg) translate3d(  500%, -250%, 0) scale(5));  
 			color: @light; background-color:@dark; transform-origin: top right; }
-		.mother_to&{    .transform(rotate( 45deg) translate3d( -10000%, -5000%, 0) scale(100));  
+		.mother_to&{    .transform(rotate( 45deg) translate3d( -500%, -250%, 0) scale(5));  
 			color: @dark; background-color:@light; transform-origin: top left; }
 
 		.expand{
@@ -125,12 +124,12 @@
 			top: 0;
 			left:0;
 			padding:10px;
-			.transition(all .3s @eio);
+			.transition(all .5s @eio);
 
-			.strange_from&{ .transform(rotate(-45deg) translate(-1%, -0.5%) scale(.01)); transform-origin: left center;  padding-left:  calc(~'10px + 10%'); }
-			.strange_to&{   .transform(rotate( 45deg) translate( 1%, -0.5%) scale(.01)); transform-origin: right center; padding-right: calc(~'10px + 10%'); }
-			.mother_from&{  .transform(rotate( 45deg) translate(-1%,  0.5%) scale(.01)); transform-origin: left center;  padding-left:  calc(~'10px + 10%'); }
-			.mother_to&{    .transform(rotate(-45deg) translate( 1%,  0.5%) scale(.01)); transform-origin: right center; padding-right: calc(~'10px + 10%'); }
+			.strange_from&{ .transform(rotate(-45deg) translate3d(-20%, -10%, 0) scale(.2)); transform-origin: left center;  padding-left:  calc(~'10px + 10%'); }
+			.strange_to&{   .transform(rotate( 45deg) translate3d( 20%, -10%, 0) scale(.2)); transform-origin: right center; padding-right: calc(~'10px + 10%'); }
+			.mother_from&{  .transform(rotate( 45deg) translate3d(-20%,  10%, 0) scale(.2)); transform-origin: left center;  padding-left:  calc(~'10px + 10%'); }
+			.mother_to&{    .transform(rotate(-45deg) translate3d( 20%,  10%, 0) scale(.2)); transform-origin: right center; padding-right: calc(~'10px + 10%'); }
 
 			.shadow .word{
 				position: relative;
@@ -139,22 +138,21 @@
 		}
 
 		&.pardon{
-			.transition(all 2s @eio);
+			.transition(all .5s @eio);
 			transform-origin:center center !important;
 
-			.strange_from&{ .transform(rotate( 45deg) translate(0%, 0%) scale(100));  }
-			// .strange_to&{   .transform(rotate(-45deg) translate(0%, 0%) scale(100));  }
-			.strange_to&{   .transform(rotate( 45deg) translate(0%, 0%) scale(100));  }
-			.mother_from&{  .transform(rotate(-45deg) translate(0%, 0%) scale(100));  }
-			.mother_to&{    .transform(rotate( 45deg) translate(0%, 0%) scale(100));  }
+			.strange_from&{ .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(5));  }
+			.strange_to&{   .transform(rotate(-45deg) translate3d(0%, 0%, 0) scale(5));  }
+			.mother_from&{  .transform(rotate(-45deg) translate3d(0%, 0%, 0) scale(5));  }
+			.mother_to&{    .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(5));  }
 
 			.expand{
-				.transition(all 2s @eio);
+				.transition(all .5s @eio);
 				transform-origin: center center;
-				.strange_from&{ .transform(rotate(-45deg) translate(0%, 0%) scale(.01));  }
-				.strange_to&{   .transform(rotate( -45deg) translate(0%, 0%) scale(.01));  }
-				.mother_from&{  .transform(rotate( 45deg) translate(0%, 0%) scale(.01));  }
-				.mother_to&{    .transform(rotate(-45deg) translate(0%, 0%) scale(.01));  }
+				.strange_from&{ .transform(rotate(-45deg) translate3d(0%, 0%, 0) scale(.2));  }
+				.strange_to&{   .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(.2));  }
+				.mother_from&{  .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(.2));  }
+				.mother_to&{    .transform(rotate(-45deg) translate3d(0%, 0%, 0) scale(.2));  }
 			}
 		}
 	}
@@ -166,7 +164,7 @@
 	font-size:24px;
 	line-height: 25px;
 	border-radius: 5px;
-	.transition(all .3s @eio);
+	.transition(all .5s @eio);
 
 	.resizedText &{
 		font-size: 14px;
@@ -183,7 +181,7 @@
 		min-height: 30px;
 		font-size:24px;
 		line-height: 30px;
-		.transition(all .3s @eio);
+		.transition(all .5s @eio);
 
 		.resizedText &{
 			min-height: 20px;
@@ -223,7 +221,7 @@
 		transform-origin: center center;
 		z-index: 10;
 		.transform(rotate(90deg));
-		.transition(all .3s @eio);
+		.transition(all .5s @eio);
 
 		.strange_from &,
 		.mother_from &{
@@ -268,6 +266,17 @@
 			width: 100%;
 			height: 100%;
 		}
+
+		p{
+			// visibility: hidden;
+			position: absolute;
+			height: 1px;
+			width: 1px;
+			top: -1px;
+			left: -1px;
+			overflow: hidden;
+			margin: 0;
+		}
 	}
 
 	textarea{
@@ -292,14 +301,14 @@ textarea{
 	overflow-wrap: break-word;
 }
 
-.loading{
+.loader{
 	position: absolute;
 	height:5px;
 	width: 5px;
 	min-height: 5px !important;
-	top:12.5px;
-	left:-12px;
-	border-radius: 5px;
+	top: 22px;
+	left: -3px;
+	border-radius: 10px;
 	display: none;
 	.loading;
 

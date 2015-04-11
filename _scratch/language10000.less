@@ -1,0 +1,98 @@
+.language{
+	position: absolute;
+	width:50%;
+	height:50%;
+	z-index: 2;
+	overflow: hidden;
+
+	// overflow: scroll;
+	// margin-left: calc(100vw - 100%); margin-right: 0;
+
+	&.strange_from{ top:0;    left:0;  }
+	&.strange_to{   top:0;    right:0; }
+	&.mother_from{  bottom:0; left:0;  }
+	&.mother_to{    bottom:0; right:0; }
+
+	::selection {
+		.strange_to&{ background-color: @dark; color:@light; }
+		.mother_to&{ background-color: @light; color:@dark; }
+	}
+
+	::-moz-selection {
+		.strange_to&{ background-color: @dark; color:@light; }
+		.mother_to&{ background-color: @light; color:@dark; }	
+	}
+
+	.interact{
+		position: absolute;
+		top:0;
+		left:0; 
+		height:100%;
+		width: 100%;
+		padding:10px;
+
+		.strange_from&{ background-color: @dark;  padding-left:  calc(~'10px + 10%'); }
+		.strange_to&{   background-color: @light; padding-right: calc(~'10px + 10%'); }
+		.mother_from&{  background-color: @light; padding-left:  calc(~'10px + 10%'); }
+		.mother_to&{    background-color: @dark;  padding-right: calc(~'10px + 10%'); }
+	}
+
+	.shade{
+		position: absolute;
+		top:0;
+		left:0;
+		height:100%;
+		width:100%;
+		z-index: 2;
+		overflow: hidden;
+		.transition(all .3s @eio);
+ 
+		.strange_from&{ .transform(rotate( 45deg) translate3d(  10000%,  5000%, 0) scale(100));  
+			color: @dark; background-color:@light; transform-origin: bottom right; }
+		.strange_to&{   .transform(rotate(-45deg) translate3d( -10000%,  5000%, 0) scale(100));  
+			color: @light; background-color:@dark; transform-origin: bottom left; }
+		.mother_from&{  .transform(rotate(-45deg) translate3d(  10000%, -5000%, 0) scale(100));  
+			color: @light; background-color:@dark; transform-origin: top right; }
+		.mother_to&{    .transform(rotate( 45deg) translate3d( -10000%, -5000%, 0) scale(100));  
+			color: @dark; background-color:@light; transform-origin: top left; }
+
+		.expand{
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			left:0;
+			padding:10px;
+			.transition(all .3s @eio);
+
+			.strange_from&{ .transform(rotate(-45deg) translate3d(-1%, -0.5%, 0) scale(.01)); transform-origin: left center;  padding-left:  calc(~'10px + 10%'); }
+			.strange_to&{   .transform(rotate( 45deg) translate3d( 1%, -0.5%, 0) scale(.01)); transform-origin: right center; padding-right: calc(~'10px + 10%'); }
+			.mother_from&{  .transform(rotate( 45deg) translate3d(-1%,  0.5%, 0) scale(.01)); transform-origin: left center;  padding-left:  calc(~'10px + 10%'); }
+			.mother_to&{    .transform(rotate(-45deg) translate3d( 1%,  0.5%, 0) scale(.01)); transform-origin: right center; padding-right: calc(~'10px + 10%'); }
+
+			.shadow .word{
+				position: relative;
+				top:3px;
+			}
+		}
+
+		&.pardon{
+			.transition(all 2s @eio);
+			transform-origin:center center !important;
+
+			.strange_from&{ .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(100));  }
+			.strange_to&{   .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(100));  }
+			.mother_from&{  .transform(rotate(-45deg) translate3d(0%, 0%, 0) scale(100));  }
+			.mother_to&{    .transform(rotate( 45deg) translate3d(0%, 0%, 0) scale(100));  }
+
+			.expand{
+				.transition(all 2s @eio);
+				transform-origin: center center;
+				.strange_from&{ .transform(rotate(-45deg)  translate3d(0%, 0%, 0) scale(.01));  }
+				.strange_to&{   .transform(rotate( -45deg) translate3d(0%, 0%, 0) scale(.01));  }
+				.mother_from&{  .transform(rotate( 45deg)  translate3d(0%, 0%, 0) scale(.01));  }
+				.mother_to&{    .transform(rotate(-45deg)  translate3d(0%, 0%, 0) scale(.01));  }
+			}
+		}
+	}
+}

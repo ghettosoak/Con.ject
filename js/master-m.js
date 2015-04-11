@@ -28432,7 +28432,34 @@ function randomizr(){
     return uuid;
 };
 
+function createCookie(name, value, days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days*24*60*60*1000));
+		var expires = "; expires=" + date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while ( c.charAt(0)==' ' ) c = c.substring(1, c.length);
+		if ( c.indexOf(nameEQ) == 0 ) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
+
 var $window = $(window),
+	$layers = $('.layers'),
 	map = [],
 	strange,
 	mother;
@@ -28447,6 +28474,12 @@ $window.load(function(){
 		$('html').addClass('cmd');
 	}
 });
+
+if ( readCookie('okaytheygotit') === 'true' )
+	$layers.removeClass().addClass('layers')
+else if ( !readCookie('okaytheygotit') )
+	$layers.removeClass().addClass('layers lay')
+
 
 var app = angular.module('conjecture', ['ngClipboard'])
 
@@ -28476,223 +28509,251 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// strange = $scope.strange = {from: [{content:' '}],to:[{loading: false,content:' '}]}
 	// mother = $scope.mother = {from: [{content:' '}],to:[{loading: false,content:' '}]}
 
-	// TEST
-	// strange = $scope.strange = {
-	// 	from: [
-	// 		{content:'hallo das ist ein bisschen text'},
-	// 		{content:'hallo das ist ein bisschen text'}
-	// 	],
-	// 	to:[
-	// 		{
-	// 			loading: false,
-	// 			selected: false,
-	// 			hovered: false,
-	// 			content:[
-	// 				{
-	// 					selected: false,
-	// 					display:'hi',
-	// 					values:[
-	// 						{
-	// 							word: 'hi',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'this',
-	// 					values:[
-	// 						{
-	// 							word: 'this',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'is',
-	// 					values:[
-	// 						{
-	// 							word: 'is',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'some',
-	// 					values:[
-	// 						{
-	// 							word: 'some',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'textttt',
-	// 					values:[
-	// 						{
-	// 							word: 'text',
-	// 							chosen: true
-	// 						},
-	// 						{
-	// 							word: 'text1',
-	// 							chosen: false
-	// 						},
-	// 						{
-	// 							word: 'text2',
-	// 							chosen: false
-	// 						},
-	// 						{
-	// 							word: 'text3',
-	// 							chosen: false
-	// 						}
-	// 					]
-	// 				},
-	// 			]
-	// 		},
-	// 		{
-	// 			loading: false,
-	// 			selected: false,
-	// 			content:[
-	// 				{
-	// 					selected: false,
-	// 					display:'hi',
-	// 					values:[
-	// 						{
-	// 							word: 'hi',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'this',
-	// 					values:[
-	// 						{
-	// 							word: 'this',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'is',
-	// 					values:[
-	// 						{
-	// 							word: 'is',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'some',
-	// 					values:[
-	// 						{
-	// 							word: 'some',
-	// 							chosen: true
-	// 						}
-	// 					]
-	// 				},
-	// 				{
-	// 					selected: false,
-	// 					display:'text',
-	// 					values:[
-	// 						{
-	// 							word: 'text',
-	// 							chosen: true
-	// 						},
-	// 						{
-	// 							word: 'text1',
-	// 							chosen: false
-	// 						},
-	// 						{
-	// 							word: 'text2',
-	// 							chosen: false
-	// 						},
-	// 						{
-	// 							word: 'text3',
-	// 							chosen: false
-	// 						}
-	// 					]
-	// 				},
-	// 			]
-	// 		}
-	// 	]
-	// }
+	// HELPING TEXT
+	strange = $scope.strange = {
+		from: [
+			{content:'hallo welt!'},
+			{content:'guten tag!'}
+		],
+		to:[
+			{
+				id: '6d7866dd-cd6e-430d-a85f-54a18faf54f9',
+				loading: false,
+				selected: false,
+				hovered: false,
+				composite: 'hello world!',
+				content:[
+					{
+						selected: false,
+						display:'hello',
+						values:[
+							{
+								word: 'hello',
+								chosen: true
+							},
+							{
+								word: 'howdy',
+								chosen: false
+							},
+							{
+								word: 'salutations',
+								chosen: false
+							}
+						]
+					},
+					{
+						selected: false,
+						display:'world!',
+						values:[
+							{
+								word: 'world',
+								chosen: true
+							},
+							{
+								word: 'planet',
+								chosen: false
+							},
+							{
+								word: 'celestial sphere',
+								chosen: false
+							},
+							{
+								word: 'globe',
+								chosen: false
+							}
+						]
+					},
+				]
+			},
+			{
+				id: 'a0da1ff4-0108-4bc9-83d3-a4d7db9c19aa',
+				loading: false,
+				selected: false,
+				hovered: false,
+				composite: 'good day!',
+				content:[
+					{
+						selected: false,
+						display:'good',
+						values:[
+							{
+								word: 'good',
+								chosen: true
+							},
+							{
+								word: 'well',
+								chosen: false
+							},
+							{
+								word: 'fine',
+								chosen: false
+							}
+						]
+					},
+					{
+						selected: false,
+						display:'day!',
+						values:[
+							{
+								word: 'day',
+								chosen: true
+							},
+							{
+								word: 'twenty-four-hour period',
+								chosen: false
+							},
+							{
+								word: 'peak',
+								chosen: false
+							},
+							{
+								word: 'age',
+								chosen: false
+							}
+						]
+					},
+				]
+			}
+		]
+	}
 
-	// mother = $scope.mother = {from: [{content:'howdy'}],to:[
-	// 	{
-	// 		loading: false,
-	// 		selected: false,
-	// 		content:[
-	// 			{
-	// 				selected: false,
-	// 				display:'salut',
-	// 				values:[
-	// 					{
-	// 						word: 'salut',
-	// 						chosen: true
-	// 					}
-	// 				]
-	// 			},
-	// 			{
-	// 				selected: false,
-	// 				display:'this',
-	// 				values:[
-	// 					{
-	// 						word: 'this',
-	// 						chosen: true
-	// 					}
-	// 				]
-	// 			},
-	// 			{
-	// 				selected: false,
-	// 				display:'is',
-	// 				values:[
-	// 					{
-	// 						word: 'is',
-	// 						chosen: true
-	// 					}
-	// 				]
-	// 			},
-	// 			{
-	// 				selected: false,
-	// 				display:'some',
-	// 				values:[
-	// 					{
-	// 						word: 'some',
-	// 						chosen: true
-	// 					}
-	// 				]
-	// 			},
-	// 			{
-	// 				selected: false,
-	// 				display:'text',
-	// 				values:[
-	// 					{
-	// 						word: 'text',
-	// 						chosen: true
-	// 					},
-	// 					{
-	// 						word: 'text1',
-	// 						chosen: false
-	// 					},
-	// 					{
-	// 						word: 'text2',
-	// 						chosen: false
-	// 					},
-	// 					{
-	// 						word: 'text3',
-	// 						chosen: false
-	// 					}
-	// 				]
-	// 			},
-	// 		]
-	// 	},
-	// ]}
+	mother = $scope.mother = {
+		from: [
+			{content:'how are you?'},
+			{content:'how is the weather?'}
+		],
+		to:[
+			{
+				id: 'c8eb9b9b-2a5e-4209-afc0-ccc721a7129f',
+				loading: false,
+				selected: false,
+				hovered: false,
+				composite: 'wie gehts dir?',
+				content:[
+					{
+						selected: false,
+						display:'wie',
+						values:[
+							{
+								word: 'wie',
+								chosen: true
+							},
+							{
+								word: 'etwa',
+								chosen: false
+							},
+							{
+								word: 'bspw.',
+								chosen: false
+							}
+						]
+					},
+					{
+						selected: false,
+						display:'gehts',
+						values:[
+							{
+								word: 'gehts',
+								chosen: true
+							},
+							{
+								word: 'geht\'s',
+								chosen: false
+							},
+							{
+								word: 'geht es',
+								chosen: false
+							}
+						]
+					},
+					{
+						selected: false,
+						display:'dir?',
+						values:[]
+					},
+				]
+			},
+			{
+				id: '74b7757e-a345-46cc-cad8-1d9b49577e29',
+				loading: false,
+				selected: false,
+				hovered: false,
+				composite: 'wie ist das wetter?',
+				content:[
+					{
+						selected: false,
+						display:'wie',
+						values:[
+							{
+								word: 'wie',
+								chosen: true
+							},
+							{
+								word: 'etwa',
+								chosen: false
+							},
+							{
+								word: 'bspw.',
+								chosen: false
+							}
+						]
+					},
+					{
+						selected: false,
+						display:'ist',
+						values:[]
+					},
+					{
+						selected: false,
+						display:'das',
+						values:[
+							{
+								word: 'das',
+								chosen: true
+							},
+							{
+								word: 'dies',
+								chosen: true
+							},
+							{
+								word: 'welches',
+								chosen: true
+							}
+						]
+					},
+					{
+						selected: false,
+						display:'wetter?',
+						values:[
+							{
+								word: 'wetter',
+								chosen: true
+							},
+							{
+								word: 'klima',
+								chosen: false
+							},
+							{
+								word: 'wetterlage',
+								chosen: false
+							}
+						]
+					},
+				]
+			},
+	]};
+
+	// 	                                                                               
+	// 	888888888888 ,ad8888ba,   888b      88   ,ad8888ba,  88        88 88888888888  
+	// 	     88     d8"'    `"8b  8888b     88  d8"'    `"8b 88        88 88           
+	// 	     88    d8'        `8b 88 `8b    88 d8'           88        88 88           
+	// 	     88    88          88 88  `8b   88 88            88        88 88aaaaa      
+	// 	     88    88          88 88   `8b  88 88      88888 88        88 88"""""      
+	// 	     88    Y8,        ,8P 88    `8b 88 Y8,        88 88        88 88           
+	// 	     88     Y8a.    .a8P  88     `8888  Y8a.    .a88 Y8a.    .a8P 88           
+	// 	     88      `"Y8888Y"'   88      `888   `"Y88888P"   `"Y8888Y"'  88888888888  
+	// 	                                                                               
+	// 	                                                                               
 
 	$scope.tongueAvailable = {
 		'it' :{ display: 'Italian',    translate: 'it', thesaurus:'it_IT' },
@@ -28712,6 +28773,17 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		strange: 'de',
 		mother: 'en'
 	};
+
+	if ( readCookie('tongue_strange') )
+		$scope.tongueUser.strange = readCookie('tongue_strange')
+
+	if ( readCookie('tongue_mother') )
+		$scope.tongueUser.mother = readCookie('tongue_mother')
+
+	$scope.setTongue = function(direction, tongue){
+		$scope.tongueUser[direction] = tongue;
+		createCookie('tongue_' + direction, tongue);
+	}
 
 	$scope.setup = false;
 
@@ -28750,6 +28822,38 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		return word;
 	}
 
+	$scope.actualBlockFocused = function($event, block, isActualBlock){
+		block.selected = true;
+
+		for (var i = 0; i < strange.to.length; i++){
+			if ( strange.to[i].id !== block.id )
+				strange.to[i].selected = false;
+		}
+
+		for (var i = 0; i < mother.to.length; i++){
+			if ( mother.to[i].id !== block.id )
+				mother.to[i].selected = false;
+		}
+
+		console.log(block)
+
+		var selection = window.getSelection(),
+			range = document.createRange(),
+			text;
+
+		if (isActualBlock)
+			text = $($event.target).children()[0];
+		else
+			text = $($event.target).find('.actualBlock').children()[0];
+
+		console.log($($event.target))
+
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+	}
+
 	// 	                                                                                                                     
 	// 	888888888888 88888888ba         db        888b      88  ad88888ba  88                 db   888888888888 88888888888  
 	// 	     88      88      "8b       d88b       8888b     88 d8"     "8b 88                d88b       88      88           
@@ -28763,6 +28867,8 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	                                                                                                                     
 
 	$scope.translate = function(query, target, language){
+
+		console.log(language)
 		if (query !== ''){
 
 			if (language === 'strange'){
@@ -28775,9 +28881,9 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			else{
 				// direction = 'en|de';
 				direction = 
-					$scope.tongueAvailable[ $scope.tongueUser.strange ].translate + 
+					$scope.tongueAvailable[ $scope.tongueUser.mother ].translate + 
 					'|' + 
-					$scope.tongueAvailable[ $scope.tongueUser.mother ].translate;
+					$scope.tongueAvailable[ $scope.tongueUser.strange ].translate;
 			}
 
 			$scope[language].to[target].loading = true;
@@ -28786,11 +28892,15 @@ var app = angular.module('conjecture', ['ngClipboard'])
 				type: 'GET',
 				url: 'http://api.mymemory.translated.net/get?q=' + query + '&langpair=' + direction
 			}).done( function(response, status){
-				var incoming = response.responseData.translatedText.split(' ');
+				var incoming = response.responseData.translatedText.split(' '),
+					composite = '';
 
 				$scope[language].to[target].content = [];
 
+
 				for (var i in incoming){
+					composite += incoming[i] + ' ';
+
 					$scope[language].to[target].content.push(
 						{
 							selected: false,
@@ -28806,6 +28916,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 				}
 
 				$scope[language].to[target].loading = false;
+				$scope[language].to[target].composite = composite;
 
 				$scope.$apply();
 			});
@@ -28837,9 +28948,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		$.ajax({
 			type: 'GET',
 			dataType: 'jsonp', 
-			url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + query + 
-				 '&language=' + $scope.tongueAvailable[ $scope.tongueUser[ theLang ] ].thesaurus + 
-				 '&key=lUigdQQMwGstukSQhYCI&output=json'
+			url: 'http://thesaurus.altervista.org/thesaurus/v1?word=' + query + '&language=' + $scope.tongueAvailable[ $scope.tongueUser[ theLang ] ].thesaurus + '&key=lUigdQQMwGstukSQhYCI&output=json'
 
 		}).done( function(response, status){
 
@@ -28886,6 +28995,16 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 		$scope[language].to[languageTarget].content[contentTarget].display = value;
 
+		var subComposite = '';
+
+		for (var i = 0; i < $scope[language].to[languageTarget].content.length; i++){
+			subComposite += $scope[language].to[languageTarget].content[i].display + ' ';
+		}
+
+		$scope[language].to[languageTarget].composite = subComposite;
+
+		console.log($scope[language].to[languageTarget].composite)
+
 	}
 
 	// 	                                                                                                                                    
@@ -28925,10 +29044,6 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		}
 	}
 
-	$scope.shadeOverlayer = function(){
-
-	}
-
 	// 	                                                                                          
 	// 	88                 db   8b        d8 ,ad8888ba,  8b           d8 88888888888 88888888ba   
 	// 	88                d88b   Y8,    ,8P d8"'    `"8b `8b         d8' 88          88      "8b  
@@ -28939,10 +29054,14 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	88           d8'        `8b  88     Y8a.    .a8P      `888'      88          88     `8b   
 	// 	88888888888 d8'          `8b 88      `"Y8888Y"'        `8'       88888888888 88      `8b  
 	// 	                                                                                          
-	// 	  
+	// 
+
 
 	$scope.layoverClick = function(target){
-		$scope.laidover = target;
+		if (target === '')
+			createCookie('okaytheygotit', 'true')
+
+		$layers.removeClass().addClass('layers ' + target)
 	}
 
 	//                                                                            
@@ -29005,9 +29124,11 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			$scope[t].to
 				.splice(i + 1, 0, 
 				{
-					loading:false, 
+					id: randomizr(),
+					loading: false, 
 					selected: false, 
 					hovered: false, 
+					composite: '',
 					content:[]
 				}
 			);
@@ -29395,7 +29516,9 @@ var app = angular.module('conjecture', ['ngClipboard'])
             });
         }
     };
-})
+});
+
+
 
 
 

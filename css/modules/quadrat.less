@@ -18,12 +18,24 @@
 		width: 100px;
 		margin:-50px 0 0 -50px;
 
-		.quadrant:before{ height: 25px !important; width: 25px !important;}
+		.quadrant:before{ height: 25px !important; width: 25px !important; .transition(all .3s @smooth);}
 
 		.one:before   { bottom: -12.5px !important; right: -12.5px !important; }
 		.two:before   { bottom: -12.5px !important; left: -12.5px !important; }
 		.three:before { top: -12.5px !important; right: -12.5px !important; }
 		.four:before  { top: -12.5px !important; left: -12.5px !important; }
+	}
+
+	.quadratShowing &{
+		position: relative;
+		top: auto;
+		left: auto;
+		margin: 0 auto;
+		height: 60px;
+		width: 60px;
+		z-index: auto;
+		border: 1px @dark solid;
+		-webkit-backface-visibility: hidden;
 	}
 
 	.spin{
@@ -71,7 +83,7 @@
 				height: 0;
 				width: 0;
 				border-radius: 50px;
-				.transition(all .3s @smooth);
+				.transition(all .1s @smooth);
 			}
 		}
 
