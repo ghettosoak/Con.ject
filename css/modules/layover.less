@@ -214,10 +214,11 @@
 	position: relative;
 	float: left;
 	color: @light;
-	// background-color: @dark;
 	overflow: hidden;
-	.transition(all 1s @smooth);
-	
+
+	.angularOnline &{
+		.transition(all 1s @smooth);
+	}
 
 	.open &{
 		.transition(all .3s @eio);

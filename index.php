@@ -37,267 +37,269 @@
 			<span ng-bind="tongueUser.strange"></span>
 		</div>
 
-		<div class="language strange_from"
-			ng-style="{ 
-				'height' : vert
-			}">
-			
-			<div 
-				class="interact"
-				back
-			>
-				<div class="block" 
-					ng-repeat="block in strange.from track by $index"
-					ng-mouseenter="strange.to[$index].hovered = true"
-					ng-mouseleave="strange.to[$index].hovered = false"
-					ng-class="{
-						hovered:  strange.to[$index].hovered
-					}"
-				>
-					<span 
-						class="closer"
-						ng-click="closeBlock($event, $index, 'strange')"
-					></span>
-					<textarea 
-						class="strange_from_textarea" 
-						ng-model="block.content"
-						ng-keydown="from($event, $index, 'strange')"
-						ng-keyup="from($event, $index, 'strange')"
-						init-focus
-						stopit>
-					</textarea>
-					<div class="copy"><span class="delicate">{{ block.content }}</span></div>
-				</div>
-			</div>
-
-			<div class="shade"
-				ng-class="{pardon: shadeTunerToggle}">
-					
-				<div class="expand">
-					<div class="block" ng-repeat="block in strange.from track by $index">
-						<div class="shadow">{{ block.content }}</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-
-		<div class="language strange_to"
+		<div class="direction strange"
 			ng-style="{ 
 				'height' : vert
 			}">
 
-			<div 
-				class="interact"
-				ground
-			>
-				<div class="block" 
-					ng-repeat="block in strange.to track by $index" 
-					ng-click="actualBlockFocused($event, block, false)"
-					ng-mouseenter="block.hovered = true"
-					ng-mouseleave="block.hovered = false"
-					ng-class="{
-						loading : block.loading,
-						selected: block.selected,
-						hovered:  block.hovered
-					}"
+			<div class="language strange_from">
+				
+				<div 
+					class="interact"
+					back
 				>
-					<span 
-						class="closer"
-						ng-click="closeBlock($event, $index, 'strange')"
-					></span>
-					<div class="loader"></div>
-					
-					<a href=""
-						class="actualBlock" 
-						clip-copy="getTextToCopyBlock(block)" 
-						ng-focus="actualBlockFocused($event, block, true)" 
-						ng-blur="block.selected = false;"
-						ng-keydown="to($event, $index, 'strange')"
-						ng-keyup="to($event, $index, 'strange')"
-						ng-click="toCopy($event)">
-						<p>{{block.composite}}</p>
-					</a>
-
-					<span class="word" 
-						ng-repeat="content in block.content"
+					<div class="block" 
+						ng-repeat="block in strange.from track by $index"
+						ng-mouseenter="strange.to[$index].hovered = true"
+						ng-mouseleave="strange.to[$index].hovered = false"
+						ng-class="{
+							hovered:  strange.to[$index].hovered
+						}"
 					>
 						<span 
-							symmetry
-							class="actual display"
-							ng-click="content.selected = true"
-							ng-hide="content.selected === true"
-							ng-mouseover="synonymous(content.display, $index, $parent.$index, 'strange')"
-						>
-							{{content.display}}
-						</span>
-						<span 
-							class="actual copier"
-							clip-copy="getTextToCopyWord(content.display)"
-							ng-show="content.selected === true"
-							ng-click="content.selected = false"
-						>
-							{{content.display}}
-						</span>
-						<ul>
-							<li 
-								class="symmetrical"
-								alignment
-								ng-repeat="value in content.values track by $index"
-								ng-click="symmetrical(value.word, $parent.$index, $parent.$parent.$index, 'strange', $event); $event.stopPropagation();"
-								ng-class="{chosen : value.chosen}"
-							>
-								{{value.word}}
-							</li>
-						</ul>
-					</span>
+							class="closer"
+							ng-click="closeBlock($event, $index, 'strange')"
+						></span>
+						<textarea 
+							class="strange_from_textarea" 
+							ng-model="block.content"
+							ng-keydown="from($event, $index, 'strange')"
+							ng-keyup="from($event, $index, 'strange')"
+							init-focus
+							stopit>
+						</textarea>
+						<div class="copy"><span class="delicate">{{ block.content }}</span></div>
+					</div>
 				</div>
+
+				<div class="shade"
+					ng-class="{pardon: shadeTunerToggle}">
+						
+					<div class="expand">
+						<div class="block" ng-repeat="block in strange.from track by $index">
+							<div class="shadow">{{ block.content }}</div>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 
-			<div class="shade"
-				ng-class="{pardon: shadeTunerToggle}">
-				<div class="expand">
-					<div class="block" ng-repeat="block in strange.to track by $index">
-						<div class="shadow">
-							<span class="word" 
-								ng-repeat="(key, content) in block.content track by $index"
+			<div class="language strange_to">
+
+				<div 
+					class="interact"
+					ground
+				>
+					<div class="block" 
+						ng-repeat="block in strange.to track by $index" 
+						ng-click="actualBlockFocused($event, block, false)"
+						ng-mouseenter="block.hovered = true"
+						ng-mouseleave="block.hovered = false"
+						ng-class="{
+							loading : block.loading,
+							selected: block.selected,
+							hovered:  block.hovered
+						}"
+					>
+						<span 
+							class="closer"
+							ng-click="closeBlock($event, $index, 'strange')"
+						></span>
+						<div class="loader"></div>
+						
+						<a href=""
+							class="actualBlock" 
+							clip-copy="getTextToCopyBlock(block)" 
+							ng-focus="actualBlockFocused($event, block, true)" 
+							ng-blur="block.selected = false;"
+							ng-keydown="to($event, $index, 'strange')"
+							ng-keyup="to($event, $index, 'strange')"
+							ng-click="toCopy($event)">
+							<p>{{block.composite}}</p>
+						</a>
+
+						<span class="word" 
+							ng-repeat="content in block.content"
+						>
+							<span 
+								symmetry
+								class="actual display"
+								ng-click="content.selected = true"
+								ng-hide="content.selected === true"
+								ng-mouseover="synonymous(content.display, $index, $parent.$index, 'strange')"
 							>
 								{{content.display}}
 							</span>
+							<span 
+								class="actual copier"
+								clip-copy="getTextToCopyWord(content.display)"
+								ng-show="content.selected === true"
+								ng-click="content.selected = false"
+							>
+								{{content.display}}
+							</span>
+							<ul>
+								<li 
+									class="symmetrical"
+									alignment
+									ng-repeat="value in content.values track by $index"
+									ng-click="symmetrical(value.word, $parent.$index, $parent.$parent.$index, 'strange', $event); $event.stopPropagation();"
+									ng-class="{chosen : value.chosen}"
+								>
+									{{value.word}}
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div>
+
+				<div class="shade"
+					ng-class="{pardon: shadeTunerToggle}">
+					<div class="expand">
+						<div class="block" ng-repeat="block in strange.to track by $index">
+							<div class="shadow">
+								<span class="word" 
+									ng-repeat="(key, content) in block.content track by $index"
+								>
+									{{content.display}}
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="language mother_from"
-			ng-style="{ 
-				'height' : antivert
-			}">		
-
-			<div 
-				class="interact"
-				back
-			>
-				<div class="block"
-					ng-repeat="block in mother.from track by $index"
-					ng-mouseenter="mother.to[$index].hovered = true"
-					ng-mouseleave="mother.to[$index].hovered = false"
-					ng-class="{
-						hovered:  mother.to[$index].hovered
-					}"
-				>
-					<span 
-						class="closer"
-						ng-click="closeBlock($event, $index, 'mother')"
-					></span>
-					<textarea 
-						class="mother_from_textarea" 
-						ng-model="block.content"
-						ng-keydown="from($event, $index, 'mother')"
-						ng-keyup="from($event, $index, 'mother')"
-						init-focus
-						stopEvent>
-					</textarea>
-					<div class="copy"><span class="delicate">{{ block }}</span></div>
-				</div>
-			</div>	
-
-			<div class="shade"
-				ng-class="{pardon: shadeTunerToggle}">
-
-				<div class="expand">
-					<div class="block" ng-repeat="block in mother.from track by $index">
-						<div class="shadow">{{ block.content }}</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-		<div class="language mother_to"
+		<div class="direction mother"
 			ng-style="{ 
 				'height' : antivert
 			}">
+			
+		
 
-			<div 
-				class="interact"
-				ground
-			>
-				<div class="block" 
-					initFocus
-					ng-repeat="block in mother.to track by $index" 
-					ng-click="actualBlockFocused($event, block, false)"
-					ng-mouseenter="block.hovered = true"
-					ng-mouseleave="block.hovered = false"
-					ng-class="{
-						loading : block.loading,
-						selected: block.selected,
-						hovered:  block.hovered
-					}"
+			<div class="language mother_from">		
+
+				<div 
+					class="interact"
+					back
 				>
-					<span 
-						class="closer"
-						ng-click="closeBlock($event, $index, 'strange')"
-					></span>
-					<div class="loader"></div>
-
-					<a href=""
-						class="actualBlock" 
-						clip-copy="getTextToCopyBlock(block)" 
-						ng-focus="block.selected = true;" 
-						ng-blur="block.selected = false;"
-						ng-keydown="to($event, $index, 'mother')"
-						ng-keyup="to($event, $index, 'mother')"
-						ng-click="toCopy($event)">
-						<p>{{block.composite}}</p>
-					</a>
-
-					<span class="word" 
-						ng-repeat="content in block.content"
+					<div class="block"
+						ng-repeat="block in mother.from track by $index"
+						ng-mouseenter="mother.to[$index].hovered = true"
+						ng-mouseleave="mother.to[$index].hovered = false"
+						ng-class="{
+							hovered:  mother.to[$index].hovered
+						}"
 					>
 						<span 
-							symmetry
-							class="actual display"
-							ng-click="content.selected = true"
-							ng-hide="content.selected === true"
-							ng-mouseover="synonymous(content.display, $index, $parent.$index, 'mother')"
-						>
-							{{content.display}}
-						</span>
-						<span 
-							class="actual copier"
-							clip-copy="getTextToCopyWord(content.display)"
-							ng-show="content.selected === true"
-							ng-click="content.selected = false"
-						>
-							{{content.display}}
-						</span>
-						<ul>
-							<li 
-								class="symmetrical"
-								alignment
-								ng-repeat="value in content.values track by $index"
-								ng-click="symmetrical(value.word, $parent.$index, $parent.$parent.$index, 'mother', $event); $event.stopPropagation();"
-								ng-class="{chosen : value.chosen}"
-							>
-								{{value.word}}
-							</li>
-						</ul>
-					</span>
+							class="closer"
+							ng-click="closeBlock($event, $index, 'mother')"
+						></span>
+						<textarea 
+							class="mother_from_textarea" 
+							ng-model="block.content"
+							ng-keydown="from($event, $index, 'mother')"
+							ng-keyup="from($event, $index, 'mother')"
+							init-focus
+							stopEvent>
+						</textarea>
+						<div class="copy"><span class="delicate">{{ block }}</span></div>
+					</div>
+				</div>	
+
+				<div class="shade"
+					ng-class="{pardon: shadeTunerToggle}">
+
+					<div class="expand">
+						<div class="block" ng-repeat="block in mother.from track by $index">
+							<div class="shadow">{{ block.content }}</div>
+						</div>
+					</div>
 				</div>
+
 			</div>
 
-			<div class="shade"
-				ng-class="{pardon: shadeTunerToggle}">
-				<div class="expand">
-					<div class="block" ng-repeat="block in mother.to track by $index">
-						<div class="shadow">
-							<span class="word" 
-								ng-repeat="(key, content) in block.content track by $index"
+			<div class="language mother_to">
+
+				<div 
+					class="interact"
+					ground
+				>
+					<div class="block" 
+						initFocus
+						ng-repeat="block in mother.to track by $index" 
+						ng-click="actualBlockFocused($event, block, false)"
+						ng-mouseenter="block.hovered = true"
+						ng-mouseleave="block.hovered = false"
+						ng-class="{
+							loading : block.loading,
+							selected: block.selected,
+							hovered:  block.hovered
+						}"
+					>
+						<span 
+							class="closer"
+							ng-click="closeBlock($event, $index, 'strange')"
+						></span>
+						<div class="loader"></div>
+
+						<a href=""
+							class="actualBlock" 
+							clip-copy="getTextToCopyBlock(block)" 
+							ng-focus="block.selected = true;" 
+							ng-blur="block.selected = false;"
+							ng-keydown="to($event, $index, 'mother')"
+							ng-keyup="to($event, $index, 'mother')"
+							ng-click="toCopy($event)">
+							<p>{{block.composite}}</p>
+						</a>
+
+						<span class="word" 
+							ng-repeat="content in block.content"
+						>
+							<span 
+								symmetry
+								class="actual display"
+								ng-click="content.selected = true"
+								ng-hide="content.selected === true"
+								ng-mouseover="synonymous(content.display, $index, $parent.$index, 'mother')"
 							>
 								{{content.display}}
 							</span>
+							<span 
+								class="actual copier"
+								clip-copy="getTextToCopyWord(content.display)"
+								ng-show="content.selected === true"
+								ng-click="content.selected = false"
+							>
+								{{content.display}}
+							</span>
+							<ul>
+								<li 
+									class="symmetrical"
+									alignment
+									ng-repeat="value in content.values track by $index"
+									ng-click="symmetrical(value.word, $parent.$index, $parent.$parent.$index, 'mother', $event); $event.stopPropagation();"
+									ng-class="{chosen : value.chosen}"
+								>
+									{{value.word}}
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div>
+
+				<div class="shade"
+					ng-class="{pardon: shadeTunerToggle}">
+					<div class="expand">
+						<div class="block" ng-repeat="block in mother.to track by $index">
+							<div class="shadow">
+								<span class="word" 
+									ng-repeat="(key, content) in block.content track by $index"
+								>
+									{{content.display}}
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -483,6 +485,35 @@
 		</div>
 
 	</div>
+
+<script type="text/javascript">
+
+	function readCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while ( c.charAt(0)==' ' ) c = c.substring(1, c.length);
+			if ( c.indexOf(nameEQ) == 0 ) return c.substring(nameEQ.length, c.length);
+		}
+		return null;
+	}
+
+	var lay_loadover = document.getElementById('loadover');
+	var lay_layover = document.getElementById('layover');
+
+	if ( readCookie('okaytheygotit') === 'true' ){
+		// $layers.removeClass().addClass('layers')
+		lay_loadover.className = 'layers'
+		lay_layover.className = 'layers'
+	}
+	else if ( !readCookie('okaytheygotit') ){
+		// $layers.removeClass().addClass('layers lay')
+		lay_loadover.className = 'layers lay'
+		lay_layover.className = 'layers lay'
+	}
+
+</script>
 
 <script type="text/javascript" src="js/master-m.js"></script>
 

@@ -18,23 +18,15 @@ function createCookie(name, value, days) {
 	document.cookie = name + "=" + value + expires + "; path=/";
 }
 
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i];
-		while ( c.charAt(0)==' ' ) c = c.substring(1, c.length);
-		if ( c.indexOf(nameEQ) == 0 ) return c.substring(nameEQ.length, c.length);
-	}
-	return null;
-}
+// READCOOKIE IS IN HEADER
 
 function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
 
 
-var $window = $(window),
+var $html = $('html'),
+	$window = $(window),
 	$layers = $('.layers'),
 	map = [],
 	strange,
@@ -51,11 +43,6 @@ $window.load(function(){
 	}
 });
 
-if ( readCookie('okaytheygotit') === 'true' )
-	$layers.removeClass().addClass('layers')
-else if ( !readCookie('okaytheygotit') )
-	$layers.removeClass().addClass('layers lay')
-
 
 var app = angular.module('conjecture', ['ngClipboard'])
 
@@ -68,6 +55,12 @@ var app = angular.module('conjecture', ['ngClipboard'])
 )
 
 .controller('MainCtrl', function($window, $scope, $http, $interval, $timeout) {
+
+	$timeout(function(){
+
+		$html.addClass('angularOnline');
+	}, 1000)
+
 
 	// 	                                                                        
 	// 	88b           d88   ,ad8888ba,   88888888ba,   88888888888 88           
@@ -82,242 +75,41 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	                                                                        
 
 	// LIVE
-	// strange = $scope.strange = {from: [{content:' '}],to:[{loading: false,content:' '}]}
-	// mother = $scope.mother = {from: [{content:' '}],to:[{loading: false,content:' '}]}
-
-	// HELPING TEXT
 	strange = $scope.strange = {
 		from: [
-			{content:'hallo welt!'},
-			{content:'guten tag!'}
+			{
+				content: ''
+			}
 		],
-		to:[
+		to: [
 			{
-				id: '6d7866dd-cd6e-430d-a85f-54a18faf54f9',
+				id: randomizr(),
 				loading: false,
 				selected: false,
 				hovered: false,
-				composite: 'hello world!',
-				content:[
-					{
-						selected: false,
-						display:'hello',
-						values:[
-							{
-								word: 'hello',
-								chosen: true
-							},
-							{
-								word: 'howdy',
-								chosen: false
-							},
-							{
-								word: 'salutations',
-								chosen: false
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'world!',
-						values:[
-							{
-								word: 'world',
-								chosen: true
-							},
-							{
-								word: 'planet',
-								chosen: false
-							},
-							{
-								word: 'celestial sphere',
-								chosen: false
-							},
-							{
-								word: 'globe',
-								chosen: false
-							}
-						]
-					},
-				]
-			},
+				composite: '',
+				content: []
+			}
+		]
+	}
+	mother = $scope.mother = {
+		from: [
 			{
-				id: 'a0da1ff4-0108-4bc9-83d3-a4d7db9c19aa',
+				content: ''
+			}
+		],
+		to: [
+			{
+				id: randomizr(),
 				loading: false,
 				selected: false,
 				hovered: false,
-				composite: 'good day!',
-				content:[
-					{
-						selected: false,
-						display:'good',
-						values:[
-							{
-								word: 'good',
-								chosen: true
-							},
-							{
-								word: 'well',
-								chosen: false
-							},
-							{
-								word: 'fine',
-								chosen: false
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'day!',
-						values:[
-							{
-								word: 'day',
-								chosen: true
-							},
-							{
-								word: 'twenty-four-hour period',
-								chosen: false
-							},
-							{
-								word: 'peak',
-								chosen: false
-							},
-							{
-								word: 'age',
-								chosen: false
-							}
-						]
-					},
-				]
+				composite: '',
+				content: []
 			}
 		]
 	}
 
-	mother = $scope.mother = {
-		from: [
-			{content:'how are you?'},
-			{content:'how is the weather?'}
-		],
-		to:[
-			{
-				id: 'c8eb9b9b-2a5e-4209-afc0-ccc721a7129f',
-				loading: false,
-				selected: false,
-				hovered: false,
-				composite: 'wie gehts dir?',
-				content:[
-					{
-						selected: false,
-						display:'wie',
-						values:[
-							{
-								word: 'wie',
-								chosen: true
-							},
-							{
-								word: 'etwa',
-								chosen: false
-							},
-							{
-								word: 'bspw.',
-								chosen: false
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'gehts',
-						values:[
-							{
-								word: 'gehts',
-								chosen: true
-							},
-							{
-								word: 'geht\'s',
-								chosen: false
-							},
-							{
-								word: 'geht es',
-								chosen: false
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'dir?',
-						values:[]
-					},
-				]
-			},
-			{
-				id: '74b7757e-a345-46cc-cad8-1d9b49577e29',
-				loading: false,
-				selected: false,
-				hovered: false,
-				composite: 'wie ist das wetter?',
-				content:[
-					{
-						selected: false,
-						display:'wie',
-						values:[
-							{
-								word: 'wie',
-								chosen: true
-							},
-							{
-								word: 'etwa',
-								chosen: false
-							},
-							{
-								word: 'bspw.',
-								chosen: false
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'ist',
-						values:[]
-					},
-					{
-						selected: false,
-						display:'das',
-						values:[
-							{
-								word: 'das',
-								chosen: true
-							},
-							{
-								word: 'dies',
-								chosen: true
-							},
-							{
-								word: 'welches',
-								chosen: true
-							}
-						]
-					},
-					{
-						selected: false,
-						display:'wetter?',
-						values:[
-							{
-								word: 'wetter',
-								chosen: true
-							},
-							{
-								word: 'klima',
-								chosen: false
-							},
-							{
-								word: 'wetterlage',
-								chosen: false
-							}
-						]
-					},
-				]
-			},
-	]};
 
 	// 	                                                                               
 	// 	888888888888 ,ad8888ba,   888b      88   ,ad8888ba,  88        88 88888888888  
@@ -444,7 +236,8 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 	$scope.translate = function(query, target, language){
 
-		console.log(language)
+		console.log(query, target, language)
+
 		if (query !== ''){
 
 			if (language === 'strange'){
@@ -495,6 +288,8 @@ var app = angular.module('conjecture', ['ngClipboard'])
 				$scope[language].to[target].composite = composite;
 
 				$scope.$apply();
+
+				$scope.equalizer(language, target);
 			});
 		}
 	}
@@ -542,6 +337,8 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			}
 
 			$scope.$apply();
+
+			$scope.equalizer(language, target);
 		}).fail( function(jqXHR, textStatus, errorThrown){
 			console.log(jqXHR)
 			console.log(textStatus)
@@ -689,11 +486,13 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	// 	                                                                                                                                                                 
 
 	$scope.addBlock = function(e, i, t){
+
+		console.log(e, i, t)
 		$timeout(function(){ 
 			$scope[t].from 
 				.splice(i + 1, 0, 
 				{
-					content:''
+					content: e
 				}
 			);
 
@@ -716,6 +515,9 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	$scope.closeBlock = function(e, i, t){
 		$scope[t].from.splice(i, 1);
 		$scope[t].to.splice(i, 1);
+
+		if ($scope[t].from.length === 0)
+			$scope.addBlock('', -1, t);
 	}
 
 	$scope.sizeCheck = _.debounce(function(query_d, target_d, language_d){ 
@@ -745,8 +547,23 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 			$scope.$apply();
 		});
+	};
 
-	}
+	$scope.equalizer = function(direction, target){
+		var height_from = $('.language.' + direction + '_from').find('.block').eq(target).outerHeight()
+		var height_to = $('.language.' + direction + '_to').find('.block').eq(target).outerHeight()
+
+		if ( height_from > height_to)
+			$('.language.' + direction + '_to').find('.block').eq(target).css('height', height_from)
+		else
+			$('.language.' + direction + '_from').find('.block').eq(target).css('height', height_to)
+	};
+
+	// $timeout(function(){
+	// 	$scope.equalizer('strange', 0);
+
+	// },1000)
+
 
 	// 	                                                          
 	// 	88888888888 88888888ba    ,ad8888ba,   88b           d88  
@@ -781,12 +598,13 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		);
 
 		if (  // COMMAND / CTRL + ENTER
-				// (map[13] && map[17]) ||
-				// (map[13] && map [16] && map[91])
-				(map[13] && map[91])
+				(map[13] && map[17]) ||
+				(map[13] && map[91]) ||
+				(map[13] && map[93]) 
 		){
-			$scope.translate($scope[t].from[i].content, i, t);
 
+			that.preventDefault();
+			$scope.translate($scope[t].from[i].content, i, t);
 			clearMap();
 		}
 
@@ -794,13 +612,17 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		else if (map[13]){ 
 			that.preventDefault();
 
-			$scope.addBlock(e, i, t);
+			$scope.addBlock('', i, t);
 
 			clearMap();
 		}
 
 		// CMD + DEL
-		else if (map[91] && map[8]){ 
+		else if (
+			map[17] && map[8] ||
+			map[91] && map[8] ||
+			map[93] && map[8]
+		){ 
 			that.preventDefault();
 
 			$(that.target).parent().prev('.block').find('textarea').focus();
@@ -810,7 +632,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 			clearMap();
 
-			if ($scope[t].from.length === 0) $scope.addBlock(e, i, t);
+			if ($scope[t].from.length === 0) $scope.addBlock('', i, t);
 		}
 
 		// DELETE
@@ -829,14 +651,15 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 				clearMap();
 
-				if ($scope[t].from.length === 0) $scope.addBlock(e, i, t);
+				if ($scope[t].from.length === 0) $scope.addBlock('', i, t);
 			}
 		}
 
 		// TAB / CMD + RIGHT
 		else if (
 			(map[9]) || 
-			(map[91] && map[39]) 
+			(map[91] && map[39]) ||
+			(map[17] && map[39])
 		){ // TAB
 			that.preventDefault();
 
@@ -846,6 +669,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 		// CMD + DOWN / CTRL + DOWN
 		else if (
+			(map[93] && map [40]) || 
 			(map[91] && map [40]) || 
 			(map[17] && map [40]) 
 		){
@@ -855,6 +679,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 
 		// CMD + UP / CTRL + UP
 		else if (
+			(map[93] && map [38]) || 
 			(map[91] && map [38]) || 
 			(map[17] && map [38]) 
 		){
@@ -865,12 +690,73 @@ var app = angular.module('conjecture', ['ngClipboard'])
 		// PASTE
 		else if (
 			(map[17] && map[86]) || 
-			(map[91] && map[86])
+			(map[91] && map[86]) ||
+			(map[93] && map[86]) 
 		){
-	    	$timeout(function(){
-				$scope.translate_direct_test($scope[t].from[i].content, i, t);
-				clearMap();
-	    	}, 200)
+
+			$timeout(function(){
+
+				var theContent = $scope[t].from[i].content.split('\n');
+
+				console.log(theContent);
+
+				for (var l = 0; l < theContent.length; l++){
+					if (theContent[l] === '') theContent.splice(l, 1);
+				}
+
+					$scope[t].from[i].content = '';
+					$scope[t].from[i].content = theContent[0];
+
+					// console.log(theContent[0])
+				$timeout(function(){
+					$scope.$apply();
+					$scope.from(e, i, t);
+				}, 100);
+
+				console.log(theContent);
+				
+		    	// $timeout(function(){
+
+					// $scope[t].from[i].content = theContent[0];
+
+				$scope.translate(theContent[0], i, t);
+
+				for (var l = 1; l < theContent.length; l++){
+					$scope.addBlock(theContent[l], i, t);
+				}
+
+				$timeout(function(){
+
+					for (var m = 1; m < theContent.length; m++){
+		    			$scope.translate(theContent[m], i + m, t);
+					}
+
+				}, 200);
+
+					// console.log(theContent.indexOf('\n'))
+		    // 		if ( theContent.length > 500 ){
+		    // 			// alert('Whoa! \n\nThat\'s a little big for [CON.JECT}. Try selecting a smaller snippet, like a sentence. Or, break it up across multiple boxes.');
+
+		    // 			var breakIndex = theContent.lastIndexOf('.')
+		    			
+		    // 			$scope.translate(theContent.substring(0, breakIndex), i, t);
+
+		    // 			$timeout(function(){
+		    // 				$scope.addBlock(theContent.substring(breakIndex, Infinity), i, t)
+
+		    // 				$timeout(function(){
+
+				  //   			$scope.translate(theContent.substring(breakIndex, Infinity), i + 1, t);
+		    // 				}, 200);
+
+		    // 			}, 200);
+		    // 		}
+		    // 		else
+						// $scope.translate($scope[t].from[i].content, i, t);
+
+					clearMap();
+		    	// }, 200)
+			}, 500); 
 		}
 
 		// UP ARROW
@@ -918,7 +804,9 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			});
 		}
 
-		$scope.sizeCheck();
+		// $scope.sizeCheck();
+
+		// $scope.equalizer_debounce(t, i);
 
 		function clearMap(){
 			map = [];
@@ -1001,7 +889,7 @@ var app = angular.module('conjecture', ['ngClipboard'])
 			clearMap();
 
 			if ($scope[t].from.length === 0){
-				$scope.addBlock(e, i, t);
+				$scope.addBlock('', i, t);
 				$('.' + t + '_from').find('.block').last().find('textarea').focus();
 			}
 		}
@@ -1061,7 +949,39 @@ var app = angular.module('conjecture', ['ngClipboard'])
 	        	var $elem = $(element);
         	    $elem.on('click', function (e) {
         	    	$elem.find('.block').last().find('textarea').focus();
+
+        	    	if ($elem.find('.block').last().find('textarea').val() !== ''){
+        	    		// var t = 
+
+        	    		scope.addBlock(
+        	    			'',
+        	    			$elem.find('.block').length - 1,
+        	    			$elem.parent().attr('class').split(' ')[1].split('_')[0]
+    	    			)
+        	    	}
+	        	    // console.log(scope)
+	        	    // console.log($elem.parent().attr('class').split(' ')[1].split('_'))
         	    });
+
+        	    $elem.on('scroll', function(){
+        	    	var $that = $(this);
+
+        	    	var backScroll = $that.scrollTop();
+
+        	    	$that.parent().siblings('.language').children('.interact')
+        	    		.scrollTop( backScroll )
+    	    		
+    	    		shadeScroller($that, backScroll);
+        	    })
+
+	    		shadeScroller = _.debounce(function($thatOne, targetScroll){
+	    			$thatOne.siblings('.shade').find('.expand')
+        	    		.scrollTop( targetScroll )
+
+	    			$thatOne.parent().siblings('.language').find('.expand')
+        	    		.scrollTop( targetScroll )
+	    		}, 1000);	    		
+
 	        }
 	    };
 	}
@@ -1078,6 +998,26 @@ var app = angular.module('conjecture', ['ngClipboard'])
         	    	$('.word').removeClass('open')
         	    	// $('.block').removeClass('selected')
         	    });
+
+        	    $elem.on('scroll', function(){
+        	    	var $that = $(this);
+
+        	    	var groundScroll = $that.scrollTop();
+
+        	    	$that.parent().siblings('.language').children('.interact')
+        	    		.scrollTop( groundScroll )
+
+
+    	    		shadeScroller($that, groundScroll);
+        	    });
+
+	    		shadeScroller = _.debounce(function($thatOne, targetScroll ){
+	    			$thatOne.siblings('.shade').find('.expand')
+        	    		.scrollTop( targetScroll )
+
+	    			$thatOne.parent().siblings('.language').find('.expand')
+        	    		.scrollTop( targetScroll )
+	    		}, 1000);	
 	        }
 	    };
 	}

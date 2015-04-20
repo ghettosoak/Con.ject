@@ -18,7 +18,10 @@
 		float: left;
 		height: 2%;
 		width: 100%;
-		.transition(all 1.5s @eio);
+
+		.angularOnline &{
+			.transition(all 1.5s @eio);
+		}
 
 		&.LO_odd{
 			.transform(translateX(-100%));
